@@ -16,10 +16,14 @@
     "gsap": "^3.15.0",
     "lenis": "^1.3.25",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "lucide-react": "^1.23.0",
 =======
     "lucide-react": "^1.31.0",
 >>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
+=======
+    "lucide-react": "^1.31.0",
+>>>>>>> 049685202074f3a7fe0613cdf6a482f3361275fe
     "next": "16.2.7",
     "react": "19.2.4",
     "react-chartjs-2": "^5.3.1",
@@ -27,18 +31,24 @@
     "react-icons": "^5.7.0",
     "react-simple-maps": "^3.0.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
 =======
+=======
+>>>>>>> 049685202074f3a7fe0613cdf6a482f3361275fe
     "tw-animate-css": "^1.4.0",
     "@react-map/india": "^1.0.21",
     "react-countup": "^6.5.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+<<<<<<< HEAD
 >>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
+=======
+>>>>>>> 049685202074f3a7fe0613cdf6a482f3361275fe
     "@types/node": "^20.19.43",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
