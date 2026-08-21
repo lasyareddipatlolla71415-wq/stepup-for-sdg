@@ -3,17 +3,30 @@
 import { useEffect, useState } from 'react'
 import { useDashboardTheme } from '../ThemeContext'
 import {
+<<<<<<< HEAD
   getVolunteerSubmissions, getPartnershipSubmissions, getEventRequests,
   type VolunteerSubmission, type PartnershipSubmission, type EventRequest,
 } from '@/app/lib/adminStore'
 
 type Tab = 'volunteers' | 'ngo' | 'csr' | 'school'
+=======
+  getVolunteerSubmissions, getPartnershipSubmissions, getEventRequests, getFellowshipListings, getWaterConservationRegistrations,
+  type VolunteerSubmission, type PartnershipSubmission, type EventRequest, type FellowshipListing, type WaterConservationRegistration,
+} from '@/app/lib/adminStore'
+
+type Tab = 'volunteers' | 'ngo' | 'csr' | 'school' | 'fellowship' | 'water'
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
 const TABS: { key: Tab; label: string; color: string }[] = [
   { key: 'volunteers', label: 'Volunteers',      color: '#22c55e' },
   { key: 'ngo',        label: 'NGO Partners',    color: '#3b82f6' },
   { key: 'csr',        label: 'Corporate CSR',   color: '#155DFC' },
   { key: 'school',     label: 'Schools',         color: '#00A8A8' },
+<<<<<<< HEAD
+=======
+  { key: 'fellowship', label: 'Fellowship Listings', color: '#a21942' },
+  { key: 'water',      label: 'Water Conservation', color: '#0369a1' },
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 ]
 
 export default function SubmissionsPage() {
@@ -22,11 +35,21 @@ export default function SubmissionsPage() {
   const [volunteers, setVolunteers] = useState<VolunteerSubmission[]>([])
   const [partnerships, setPartnerships] = useState<PartnershipSubmission[]>([])
   const [eventReqs, setEventReqs] = useState<EventRequest[]>([])
+<<<<<<< HEAD
+=======
+  const [fellowships, setFellowships] = useState<FellowshipListing[]>([])
+  const [waterRegs, setWaterRegs] = useState<WaterConservationRegistration[]>([])
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
   useEffect(() => {
     setVolunteers(getVolunteerSubmissions())
     setPartnerships(getPartnershipSubmissions())
     setEventReqs(getEventRequests())
+<<<<<<< HEAD
+=======
+    setFellowships(getFellowshipListings())
+    setWaterRegs(getWaterConservationRegistrations())
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   }, [])
 
   const c = {
@@ -48,6 +71,11 @@ export default function SubmissionsPage() {
     ngo:        ngo.length,
     csr:        csr.length,
     school:     schools.length,
+<<<<<<< HEAD
+=======
+    fellowship: fellowships.length,
+    water: waterRegs.length,
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   }
 
   const activeColor = TABS.find(t => t.key === tab)!.color
@@ -79,12 +107,20 @@ export default function SubmissionsPage() {
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: c.textPrimary }}>Form Submissions</div>
         <div style={{ fontSize: 12, color: c.textMuted, marginTop: 3 }}>
+<<<<<<< HEAD
           All public form submissions — Volunteers, NGO Partners, Corporate CSR, Schools
+=======
+          All public form submissions — Volunteers, NGO Partners, Corporate CSR, Schools, Fellowship Listings
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         </div>
       </div>
 
       {/* Summary cards */}
+<<<<<<< HEAD
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
+=======
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 14, marginBottom: 24 }}>
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         {TABS.map(t => (
           <div key={t.key} onClick={() => setTab(t.key)} style={{
             background: c.surface,
@@ -234,6 +270,75 @@ export default function SubmissionsPage() {
             </tbody>
           </table>
         )}
+<<<<<<< HEAD
+=======
+
+        {/* Water Conservation */}
+        {tab === 'water' && (
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                {['Name', 'Email', 'Phone', 'City', 'Role', 'Site', 'Type', 'Location', 'Water Source', 'Beneficiaries', 'Submitted'].map(h => (
+                  <th key={h} style={head}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {waterRegs.length === 0 ? <Empty /> : waterRegs.map(r => (
+                <tr key={r.id}>
+                  <td style={{ ...cell, fontWeight: 600 }}>{r.fullName}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{r.email}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{r.phone}</td>
+                  <td style={{ ...cell }}>{r.city}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{r.role}</td>
+                  <td style={{ ...cell, fontWeight: 600 }}>{r.siteName}</td>
+                  <td style={{ ...cell }}>
+                    <span style={{ background: `${activeColor}18`, color: activeColor, border: `1px solid ${activeColor}40`, borderRadius: 6, padding: '2px 8px', fontSize: 11, fontWeight: 700 }}>
+                      {r.siteType}
+                    </span>
+                  </td>
+                  <td style={{ ...cell, color: c.textSecond }}>{r.siteLocation}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{r.waterSource}</td>
+                  <td style={{ ...cell }}>{r.participants}</td>
+                  <td style={{ ...cell, color: c.textMuted, whiteSpace: 'nowrap' }}>{r.submittedAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        {/* Fellowship Listings */}
+        {tab === 'fellowship' && (
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                {['Organization', 'Contact', 'Email', 'Role', 'Type', 'Location', 'Duration', 'Compensation', 'Submitted'].map(h => (
+                  <th key={h} style={head}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {fellowships.length === 0 ? <Empty /> : fellowships.map(f => (
+                <tr key={f.id}>
+                  <td style={{ ...cell, fontWeight: 600 }}>{f.orgName}</td>
+                  <td style={{ ...cell }}>{f.contact}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{f.email}</td>
+                  <td style={{ ...cell, fontWeight: 600 }}>{f.role}</td>
+                  <td style={{ ...cell }}>
+                    <span style={{ background: `${activeColor}18`, color: activeColor, border: `1px solid ${activeColor}40`, borderRadius: 6, padding: '2px 8px', fontSize: 11, fontWeight: 700 }}>
+                      {f.type}
+                    </span>
+                  </td>
+                  <td style={{ ...cell, color: c.textSecond }}>{f.location}</td>
+                  <td style={{ ...cell }}>{f.duration}</td>
+                  <td style={{ ...cell, color: c.textSecond }}>{f.compensation}</td>
+                  <td style={{ ...cell, color: c.textMuted, whiteSpace: 'nowrap' }}>{f.submittedAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
       </div>
     </div>
   )

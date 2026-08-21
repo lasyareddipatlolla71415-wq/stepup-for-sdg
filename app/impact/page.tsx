@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+<<<<<<< HEAD
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -23,20 +24,34 @@ import {
 
 const headingFont =
   '"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif';
+=======
+import ImpactClient from "./ImpactClient";
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
 const heroImage =
   "/assets/images/WhatsApp%20Image%202026-07-20%20at%209.30.49%20PM.jpeg";
 
+<<<<<<< HEAD
 const fourthImage =
   "/assets/images/4.jpeg";
 
 type ImpactMetric = {
   icon: LucideIcon;
+=======
+const fourthImage = "/assets/images/4.jpeg";
+
+export type ImpactMetric = {
+  icon: string;
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   value: string;
   label: string;
 };
 
+<<<<<<< HEAD
 type ImpactSection = {
+=======
+export type ImpactSection = {
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   number: string;
   title: string;
   image: string;
@@ -49,6 +64,7 @@ const sections: ImpactSection[] = [
   {
     number: "01",
     title: "SDG Education for Students",
+<<<<<<< HEAD
     image: "/assets/images/1.jpeg",
     imageAlt: "Students learning about the Sustainable Development Goals in a classroom",
     metrics: [
@@ -82,10 +98,100 @@ const sections: ImpactSection[] = [
       { icon: Sparkles, value: "90%", label: "Placement Rate" },
     ],
   },
+=======
+    image: "/assets/images/impact1.jpeg",
+    imageAlt:
+      "Students learning about the Sustainable Development Goals in a classroom",
+    metrics: [
+      {
+        icon: "School",
+        value: "150+",
+        label: "Schools Reached",
+      },
+      {
+        icon: "GraduationCap",
+        value: "18,500+",
+        label: "Students Educated",
+      },
+      {
+        icon: "Users",
+        value: "320+",
+        label: "SDG Workshops",
+      },
+      {
+        icon: "Award",
+        value: "12,000+",
+        label: "Certificates Issued",
+      },
+    ],
+  },
+
+  {
+    number: "02",
+    title: "Sustainability Education Program",
+    image: "/assets/images/impact2.png",
+    imageAlt:
+      "Students exploring different career paths and industry opportunities",
+    metrics: [
+      {
+        icon: "BriefcaseBusiness",
+        value: "250+",
+        label: "Career Sessions",
+      },
+      {
+        icon: "Handshake",
+        value: "20+",
+        label: "Industry Experts",
+      },
+      {
+        icon: "GraduationCap",
+        value: "10,000+",
+        label: "Students Reached",
+      },
+      {
+        icon: "Sparkles",
+        value: "95%",
+        label: "Positive Feedback",
+      },
+    ],
+  },
+
+  {
+    number: "03",
+    title: "Fellowship",
+    image: "/assets/images/impact3.png",
+    imageAlt:
+      "Industry experts guiding students toward future careers and innovation",
+    metrics: [
+      {
+        icon: "Briefcase",
+        value: "100+",
+        label: "Fellows Enrolled",
+      },
+      {
+        icon: "Star",
+        value: "50+",
+        label: "Mentors & Experts",
+      },
+      {
+        icon: "GraduationCap",
+        value: "5,000+",
+        label: "Students Guided",
+      },
+      {
+        icon: "Sparkles",
+        value: "90%",
+        label: "Placement Rate",
+      },
+    ],
+  },
+
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   {
     number: "04",
     title: "Water Conservation Program",
     image: "/assets/images/2.jpeg",
+<<<<<<< HEAD
     imageAlt: "Students gathered around a rainwater harvesting system",
     metrics: [
       { icon: Droplets, value: "125+", label: "Awareness Sessions" },
@@ -94,16 +200,70 @@ const sections: ImpactSection[] = [
       { icon: Users, value: "50,000+", label: "Students Benefited" },
     ],
   },
+=======
+    imageAlt:
+      "Students gathered around a rainwater harvesting system",
+    metrics: [
+      {
+        icon: "Droplets",
+        value: "125+",
+        label: "Awareness Sessions",
+      },
+      {
+        icon: "School",
+        value: "60+",
+        label: "Schools Involved",
+      },
+      {
+        icon: "Recycle",
+        value: "40+",
+        label: "Harvesting Systems",
+      },
+      {
+        icon: "Users",
+        value: "50,000+",
+        label: "Students Benefited",
+      },
+    ],
+  },
+
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   {
     number: "05",
     title: "Clean Community Initiative",
     image: "/assets/images/3.jpeg",
+<<<<<<< HEAD
     imageAlt: "Volunteers cleaning a public space during a community drive",
     metrics: [
       { icon: Trash2, value: "200+", label: "Clean Drives" },
       { icon: Users, value: "15,000+", label: "Volunteers Engaged" },
       { icon: Trees, value: "100+", label: "Communities Covered" },
       { icon: Leaf, value: "30 Tons+", label: "Waste Collected" },
+=======
+    imageAlt:
+      "Volunteers cleaning a public space during a community drive",
+    metrics: [
+      {
+        icon: "Trash2",
+        value: "200+",
+        label: "Clean Drives",
+      },
+      {
+        icon: "Users",
+        value: "15,000+",
+        label: "Volunteers Engaged",
+      },
+      {
+        icon: "Trees",
+        value: "100+",
+        label: "Communities Covered",
+      },
+      {
+        icon: "Leaf",
+        value: "30 Tons+",
+        label: "Waste Collected",
+      },
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
     ],
   },
 ];
@@ -114,6 +274,7 @@ export const metadata: Metadata = {
     "A visual overview of StepUp for SDG's classroom, sustainability, and community programmes.",
 };
 
+<<<<<<< HEAD
 function MetricCard({ metric }: { metric: ImpactMetric }) {
   const Icon = metric.icon;
 
@@ -364,3 +525,13 @@ export default function ImpactPage() {
     </div>
   );
 }
+=======
+export default function ImpactPage() {
+  return (
+    <ImpactClient
+      sections={sections}
+      heroImage={heroImage}
+    />
+  );
+}
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1

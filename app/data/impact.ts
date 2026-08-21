@@ -135,6 +135,10 @@ export type ImpactProject = {
   title: string;
   image: string;
   imageAlt: string;
+<<<<<<< HEAD
+=======
+  imagePosition?: string;
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   accent: string;
   activities: ProjectActivity[];
   stats: ProjectStat[];
@@ -205,6 +209,10 @@ export const impactProjects: ImpactProject[] = [
     title: "Different Career Exposure",
     image: "/assets/images/WhatsApp%20Image%202026-07-20%20at%209.30.49%20PM.jpeg",
     imageAlt: "Career guidance session with students and industry experts",
+<<<<<<< HEAD
+=======
+    imagePosition: "center center",
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
     accent: "var(--gold)",
     activities: [
       { label: "Career Guidance Sessions" },

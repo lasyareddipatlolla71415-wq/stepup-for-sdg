@@ -62,6 +62,40 @@ export type DonationRecord = {
   donatedAt: string
 }
 
+<<<<<<< HEAD
+=======
+export type FellowshipListing = {
+  id: number
+  orgName: string
+  website: string
+  contact: string
+  email: string
+  role: string
+  type: string
+  location: string
+  duration: string
+  compensation: string
+  description: string
+  submittedAt: string
+}
+
+export type WaterConservationRegistration = {
+  id: number
+  fullName: string
+  email: string
+  phone: string
+  city: string
+  role: string
+  siteName: string
+  siteType: string
+  siteLocation: string
+  waterSource: string
+  participants: string
+  motivation: string
+  submittedAt: string
+}
+
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 export type AdminStats = {
   totalPartners: number
   totalProjects: number
@@ -82,6 +116,11 @@ const KEYS = {
   eventRequests: 'stepup_event_requests',
   stats: 'stepup_admin_stats',
   donations: 'stepup_donations',
+<<<<<<< HEAD
+=======
+  fellowships: 'stepup_fellowship_listings',
+  waterConservation: 'stepup_water_conservation_registrations',
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 }
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
@@ -224,3 +263,32 @@ export function addDonation(d: Omit<DonationRecord, 'id' | 'donatedAt'>) {
   const list = getDonations()
   save(KEYS.donations, [{ ...d, id: Date.now(), donatedAt: new Date().toISOString() }, ...list])
 }
+<<<<<<< HEAD
+=======
+
+// ─── Fellowship Listings ──────────────────────────────────────────────────────
+
+export function getFellowshipListings(): FellowshipListing[] {
+  return load(KEYS.fellowships, [])
+}
+
+export function addFellowshipListing(f: Omit<FellowshipListing, 'id' | 'submittedAt'>) {
+  const list = getFellowshipListings()
+  save(KEYS.fellowships, [{ ...f, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0] }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+
+// ─── Water Conservation Registrations ────────────────────────────────────────
+
+export function getWaterConservationRegistrations(): WaterConservationRegistration[] {
+  return load(KEYS.waterConservation, [])
+}
+
+export function addWaterConservationRegistration(r: Omit<WaterConservationRegistration, 'id' | 'submittedAt'>) {
+  const list = getWaterConservationRegistrations()
+  save(KEYS.waterConservation, [{ ...r, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0] }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+>>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
