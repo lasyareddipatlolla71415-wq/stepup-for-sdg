@@ -1,0 +1,333 @@
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+@layer components {
+  .glass-card {
+    @apply bg-white/85 backdrop-blur-[16px] rounded-2xl border border-white/40 transition-all duration-300;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  .glass-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-subtitle {
+    @apply inline-flex items-center gap-2 text-sm font-semibold tracking-[0.18em] uppercase text-[#0A5BFF];
+  }
+  
+  .section-subtitle::before,
+  .section-subtitle::after {
+    content: '';
+    @apply w-6 h-[2px] bg-[#0A5BFF] rounded-full;
+  }
+
+  .sdg-bar {
+    @apply flex gap-0.5 w-full max-w-[280px] h-[6px] rounded-full overflow-hidden;
+  }
+
+  .color-accent-line {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  .color-accent-line > span {
+    @apply h-[6px] rounded-[4px] flex-1 min-w-0;
+  }
+
+  .sdg-color-cycle {
+    color: #2B4F7E;
+    animation: sdgColorCycle 11s ease-in-out infinite;
+    text-shadow: 0 0 0 rgba(43, 79, 126, 0.2);
+    transform-origin: center;
+  }
+
+  @keyframes sdgColorCycle {
+    0%, 8.99% {
+      color: #2B4F7E;
+      text-shadow: 0 0 18px rgba(43, 79, 126, 0.2);
+      transform: scale(1);
+    }
+    9%, 17.99% {
+      color: #0C66C9;
+      text-shadow: 0 0 18px rgba(12, 102, 201, 0.2);
+      transform: scale(1.03);
+    }
+    18%, 26.99% {
+      color: #05A9A9;
+      text-shadow: 0 0 18px rgba(5, 169, 169, 0.2);
+      transform: scale(1);
+    }
+    27%, 35.99% {
+      color: #05AD51;
+      text-shadow: 0 0 18px rgba(5, 173, 81, 0.2);
+      transform: scale(1.03);
+    }
+    36%, 44.99% {
+      color: #8AC73D;
+      text-shadow: 0 0 18px rgba(138, 199, 61, 0.2);
+      transform: scale(1);
+    }
+    45%, 53.99% {
+      color: #F4B404;
+      text-shadow: 0 0 18px rgba(244, 180, 4, 0.2);
+      transform: scale(1.03);
+    }
+    54%, 62.99% {
+      color: #F87D0A;
+      text-shadow: 0 0 18px rgba(248, 125, 10, 0.2);
+      transform: scale(1);
+    }
+    63%, 71.99% {
+      color: #F8655E;
+      text-shadow: 0 0 18px rgba(248, 101, 94, 0.2);
+      transform: scale(1.03);
+    }
+    72%, 80.99% {
+      color: #D03E88;
+      text-shadow: 0 0 18px rgba(208, 62, 136, 0.2);
+      transform: scale(1);
+    }
+    81%, 89.99% {
+      color: #846EF3;
+      text-shadow: 0 0 18px rgba(132, 110, 243, 0.2);
+      transform: scale(1.03);
+    }
+    90%, 100% {
+      color: #2B4F7E;
+      text-shadow: 0 0 18px rgba(43, 79, 126, 0.2);
+      transform: scale(1);
+    }
+  }
+  
+  .sdg-bar > * {
+    @apply flex-1;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     DESIGN SYSTEM — TYPOGRAPHY CLASSES
+     All specs from the brand typography table.
+     Font: Manrope (sans) | Cormorant Garamond Italic (serif)
+  ════════════════════════════════════════════════════════ */
+
+  /* ── Hero Title ──────────────────────────────────────── */
+  .text-hero {
+    font-family: 'Manrope', sans-serif;
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 84px;
+  }
+
+  /* ── Hero Tagline (Cormorant Garamond Italic) ─────────── */
+  .text-tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 40px;
+  }
+
+  /* ── Page Heading H1 ─────────────────────────────────── */
+  .text-h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 68px;
+  }
+
+  /* ── Section Heading H2 ──────────────────────────────── */
+  .text-h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 60px;
+  }
+
+  /* ── Sub Heading H3 ──────────────────────────────────── */
+  .text-h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 48px;
+  }
+
+  /* ── Card Heading H4 ─────────────────────────────────── */
+  .text-h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 40px;
+  }
+
+  /* ── Small Heading H5 ────────────────────────────────── */
+  .text-h5 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 34px;
+  }
+
+  /* ── Mini Heading H6 ─────────────────────────────────── */
+  .text-h6 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+
+  /* ── Body Large ──────────────────────────────────────── */
+  .text-body-lg {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 34px;
+  }
+
+  /* ── Body ────────────────────────────────────────────── */
+  .text-body {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+
+  /* ── Body Small ──────────────────────────────────────── */
+  .text-body-sm {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  /* ── Caption ─────────────────────────────────────────── */
+  .text-caption {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  /* ── Label (PROJECT 01, SDG labels) ──────────────────── */
+  .text-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Navbar ──────────────────────────────────────────── */
+  .text-nav {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  /* ── Active Navbar ───────────────────────────────────── */
+  .text-nav-active {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  /* ── Buttons (Primary & Secondary) ──────────────────── */
+  .text-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  /* ── Statistics Number ───────────────────────────────── */
+  .text-stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 64px;
+  }
+
+  /* ── Statistics Label ────────────────────────────────── */
+  .text-stat-lbl {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+  }
+
+  /* ── Project Number (PROJECT 01) ─────────────────────── */
+  .text-proj-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Footer Heading ──────────────────────────────────── */
+  .text-footer-heading {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+
+  /* ── Footer Links ────────────────────────────────────── */
+  .text-footer-link {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  /* ── Quote / Motto (Cormorant Garamond Italic) ───────── */
+  .text-quote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 38px;
+  }
+
+  /* ── Campaign Slogan (Cormorant Garamond Italic) ─────── */
+  .text-slogan {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 40px;
+  }
+}
+
+@layer utilities {
+  .shadow-glass {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  }
+  .shadow-glass-hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+  .shadow-pill {
+    box-shadow: 0 4px 14px 0 rgba(10, 91, 255, 0.39);
+  }
+  .shadow-soft {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #0A5BFF, #42A5FF);
+  border-radius: 4px;
+}
