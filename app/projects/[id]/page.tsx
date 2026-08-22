@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { notFound } from "next/navigation";
-
-export default function ProjectDetailPage() {
-  return notFound();
-=======
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -299,5 +293,5 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
       </div>
     </div>
   );
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 }
+

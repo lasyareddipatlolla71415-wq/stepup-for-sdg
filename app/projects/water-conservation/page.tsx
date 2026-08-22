@@ -66,9 +66,6 @@ const STEP_ICONS = [
     <polyline points="54,56 58,61 67,50" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>,
 
-  { step: '01', title: 'Site Assessment',    desc: 'Our team evaluates your school or community site for rainwater harvesting potential and water usage patterns.' },
-  { step: '02', title: 'System Installation', desc: 'We install rainwater collection systems, storage tanks, and filtration units tailored to your site.' },
-  { step: '03', title: 'Monitor & Maintain',  desc: 'Ongoing monitoring, community training, and maintenance support to ensure long-term impact.' },
 ];
 
 const STEPS = [

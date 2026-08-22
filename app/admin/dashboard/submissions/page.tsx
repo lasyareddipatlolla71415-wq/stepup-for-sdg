@@ -3,30 +3,19 @@
 import { useEffect, useState } from 'react'
 import { useDashboardTheme } from '../ThemeContext'
 import {
-<<<<<<< HEAD
-  getVolunteerSubmissions, getPartnershipSubmissions, getEventRequests,
-  type VolunteerSubmission, type PartnershipSubmission, type EventRequest,
-} from '@/app/lib/adminStore'
-
-type Tab = 'volunteers' | 'ngo' | 'csr' | 'school'
-=======
   getVolunteerSubmissions, getPartnershipSubmissions, getEventRequests, getFellowshipListings, getWaterConservationRegistrations,
   type VolunteerSubmission, type PartnershipSubmission, type EventRequest, type FellowshipListing, type WaterConservationRegistration,
 } from '@/app/lib/adminStore'
 
 type Tab = 'volunteers' | 'ngo' | 'csr' | 'school' | 'fellowship' | 'water'
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
 const TABS: { key: Tab; label: string; color: string }[] = [
   { key: 'volunteers', label: 'Volunteers',      color: '#22c55e' },
   { key: 'ngo',        label: 'NGO Partners',    color: '#3b82f6' },
   { key: 'csr',        label: 'Corporate CSR',   color: '#155DFC' },
   { key: 'school',     label: 'Schools',         color: '#00A8A8' },
-<<<<<<< HEAD
-=======
   { key: 'fellowship', label: 'Fellowship Listings', color: '#a21942' },
   { key: 'water',      label: 'Water Conservation', color: '#0369a1' },
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 ]
 
 export default function SubmissionsPage() {
@@ -35,21 +24,15 @@ export default function SubmissionsPage() {
   const [volunteers, setVolunteers] = useState<VolunteerSubmission[]>([])
   const [partnerships, setPartnerships] = useState<PartnershipSubmission[]>([])
   const [eventReqs, setEventReqs] = useState<EventRequest[]>([])
-<<<<<<< HEAD
-=======
   const [fellowships, setFellowships] = useState<FellowshipListing[]>([])
   const [waterRegs, setWaterRegs] = useState<WaterConservationRegistration[]>([])
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
   useEffect(() => {
     setVolunteers(getVolunteerSubmissions())
     setPartnerships(getPartnershipSubmissions())
     setEventReqs(getEventRequests())
-<<<<<<< HEAD
-=======
     setFellowships(getFellowshipListings())
     setWaterRegs(getWaterConservationRegistrations())
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   }, [])
 
   const c = {
@@ -71,11 +54,8 @@ export default function SubmissionsPage() {
     ngo:        ngo.length,
     csr:        csr.length,
     school:     schools.length,
-<<<<<<< HEAD
-=======
     fellowship: fellowships.length,
     water: waterRegs.length,
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   }
 
   const activeColor = TABS.find(t => t.key === tab)!.color
@@ -107,20 +87,12 @@ export default function SubmissionsPage() {
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: c.textPrimary }}>Form Submissions</div>
         <div style={{ fontSize: 12, color: c.textMuted, marginTop: 3 }}>
-<<<<<<< HEAD
-          All public form submissions — Volunteers, NGO Partners, Corporate CSR, Schools
-=======
           All public form submissions — Volunteers, NGO Partners, Corporate CSR, Schools, Fellowship Listings
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         </div>
       </div>
 
       {/* Summary cards */}
-<<<<<<< HEAD
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
-=======
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 14, marginBottom: 24 }}>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         {TABS.map(t => (
           <div key={t.key} onClick={() => setTab(t.key)} style={{
             background: c.surface,
@@ -270,8 +242,6 @@ export default function SubmissionsPage() {
             </tbody>
           </table>
         )}
-<<<<<<< HEAD
-=======
 
         {/* Water Conservation */}
         {tab === 'water' && (
@@ -338,8 +308,8 @@ export default function SubmissionsPage() {
             </tbody>
           </table>
         )}
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
       </div>
     </div>
   )
 }
+

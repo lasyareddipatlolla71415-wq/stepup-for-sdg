@@ -2,10 +2,7 @@
 @source ".";
 @source "../src";
 @import "tw-animate-css";
-<<<<<<< HEAD
-=======
 @import "../src/styles/rahini-custom.css";
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 
 
 /*
@@ -73,8 +70,6 @@
   --color-muted-text: var(--muted-text);
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-<<<<<<< HEAD
-=======
   --font-manrope: "Manrope", sans-serif;
   --font-poppins: "Manrope", sans-serif;
   --font-script: "Cormorant Garamond", Georgia, serif;
@@ -95,7 +90,6 @@
   --shadow-pill: 0 10px 25px -5px rgba(10,91,255,0.4);
   --shadow-soft: 0 10px 30px rgba(0,0,0,0.04);
   --animate-spin-slow: spin 25s linear infinite;
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
 }
 
 :root {

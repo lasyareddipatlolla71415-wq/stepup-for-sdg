@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import Link from "next/link";
-import { FadeUp } from "@/app/components/site/FadeUp";
-import { SpaceBackdrop } from "@/app/components/site/SpaceBackdrop";
-import { VisionMission } from "@/app/components/site/VisionMission";
-import { TeamCards } from "@/app/components/site/TeamCards";
-import { FivePCards } from "@/app/components/site/FivePCards";
-import { hideFundsAndContact } from "@/app/lib/siteFlags";
-
-export const metadata = {
-=======
 "use client";
 import Link from "next/link";
 import { FadeUp } from "@/app/components/site/FadeUp";
@@ -43,28 +32,12 @@ function CountUp({ to, duration = 1800 }: { to: number; duration?: number }) {
 }
 
 const metadata = {
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   title: "About — StepUp for SDG",
   description: "Purpose-driven partnerships for a better tomorrow.",
 };
 
 export default function AboutPage() {
   return (
-<<<<<<< HEAD
-    <>
-      {/* 1. Hero */}
-      <section className="relative overflow-hidden py-14 px-6">
-        <SpaceBackdrop />
-        <div className="relative mx-auto max-w-4xl text-center">
-          <FadeUp>
-            <h1 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight text-white">
-              Purpose-driven partnerships for a{" "}
-              <span className="grad-text">better tomorrow</span>
-            </h1>
-            <p className="mt-6 max-w-2xl mx-auto" style={{color: "rgba(200,220,255,0.9)"}}>
-              Educating students on the UN Sustainable Development Goals, empowering them to adopt sustainable lifestyles, make informed choices, explore meaningful careers, and drive positive change in their families and communities.
-            </p>
-=======
     <div style={{ background: "linear-gradient(160deg, #f0faf0 0%, #f7fbf7 40%, #fafffe 70%, #ffffff 100%)" }}>
       {/* 1. Hero */}
       <section className="relative overflow-hidden min-h-[88vh] flex items-center px-6 py-16">
@@ -156,79 +129,10 @@ export default function AboutPage() {
 
 
             </div>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
           </FadeUp>
         </div>
       </section>
 
-<<<<<<< HEAD
-      {/* 2. Vision & Mission */}
-      <section className="px-6 py-12 scroll-mt-20">
-        <div className="mx-auto max-w-[1400px]">
-          <VisionMission />
-        </div>
-      </section>
-
-      {/* 3. Five Pillars (5P Model) */}
-      <section id="5p" className="px-6 pt-8 pb-6 scroll-mt-20">
-        <div className="mx-auto max-w-6xl text-center">
-          <FadeUp>
-            <span className="text-xs uppercase tracking-[0.25em] text-cyan-glow">
-              5P Model
-            </span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold">
-              Five pillars of sustainable impact
-            </h2>
-          </FadeUp>
-          <FivePCards />
-        </div>
-      </section>
-
-{/* 4. Our Story / Who We Are */}
-      <section id="story" className="px-6 py-12 scroll-mt-20">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
-          <FadeUp>
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-cyan-glow">
-                Who We Are
-              </span>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold">
-                Our Story
-              </h2>
-              <div className="mt-6 space-y-4 text-muted-text leading-relaxed">
-                <p>
-                  StepUp for SDG began with a simple conviction: that quality
-                  education is the most powerful lever for lasting change. What
-                  started as a handful of volunteers supporting local schools
-                  has grown into a collaborative platform uniting students,
-                  educators, NGOs and companies around a shared mission.
-                </p>
-                <p>
-                  Today we connect partners across regions to fund, design and
-                  deliver transparent educational initiatives — turning
-                  intention into measurable impact for the children who need it
-                  most.
-                </p>
-                <p>
-                  We believe progress should be visible. Every project we
-                  support is tracked, reported, and built to last, so every
-                  contribution becomes a real opportunity for a learner.
-                </p>
-              </div>
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={120}>
-            <div className="overflow-hidden rounded-3xl glass p-[1.5px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80"
-                alt="Students learning in classroom"
-                className="aspect-[4/3] w-full rounded-3xl object-cover"
-              />
-            </div>
-          </FadeUp>
-=======
       {/* 2. Our Story */}
       <section id="story" className="relative scroll-mt-20 overflow-hidden py-24 px-6">
 
@@ -508,21 +412,10 @@ export default function AboutPage() {
               </FadeUp>
             ))}
           </div>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         </div>
       </section>
 
       {/* 5. Our Team */}
-<<<<<<< HEAD
-      <section id="team" className="px-6 py-12 bg-deep-blue/40 scroll-mt-20">
-        <div className="mx-auto max-w-6xl">
-          <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
-              Our Team
-            </h2>
-          </FadeUp>
-          <TeamCards />
-=======
       <section id="team" className="relative px-6 py-24 scroll-mt-20 overflow-hidden">
 
         <div className="relative mx-auto max-w-6xl">
@@ -583,20 +476,10 @@ export default function AboutPage() {
               </FadeUp>
             ))}
           </div>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
         </div>
       </section>
 
       {/* 6. Join Our Mission CTA */}
-<<<<<<< HEAD
-      <section id="join" className="px-6 pt-6 pb-10 scroll-mt-20">
-        <FadeUp>
-          <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl glass p-10 text-center md:p-14">
-            <h2 className="font-display text-3xl md:text-4xl font-bold">
-              Join Our <span className="grad-text">Mission</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-text">
-=======
       <section id="join" className="px-6 pt-6 pb-16 scroll-mt-20" style={{ background: "transparent" }}>
         <FadeUp>
           <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl p-10 text-center md:p-14" style={{ background: "linear-gradient(135deg,#0d1b3e 0%,#1a2f6e 60%,#0d1b3e 100%)" }}>
@@ -604,7 +487,6 @@ export default function AboutPage() {
               Join Our <span style={{ background: "linear-gradient(90deg,#ff7a00,#ffb347)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Mission</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[#a0aec0] font-normal" style={{fontSize:"18px",lineHeight:"30px"}}>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
               Whether you&apos;re a school, NGO, company or volunteer, there&apos;s
               a place for you in building a future where every child has access
               to quality education.
@@ -612,21 +494,13 @@ export default function AboutPage() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/work-with-us"
-<<<<<<< HEAD
-                className="inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-semibold text-white shadow-[0_0_24px_rgba(255,122,0,0.45)] transition hover:brightness-110"
-=======
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-white transition hover:brightness-110" style={{fontSize:"16px",lineHeight:"24px",background:"#ff7a00",boxShadow:"0 0 24px rgba(255,122,0,0.45)"}}
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
               >
                 Work With Us
               </Link>
               <Link
                 href="/contact"
-<<<<<<< HEAD
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:border-cyan-glow hover:text-cyan-glow"
-=======
                 className="inline-flex items-center gap-2 rounded-full border px-6 py-3 font-semibold transition hover:text-[#00c2ff]" style={{fontSize:"16px",lineHeight:"24px",borderColor:"rgba(255,255,255,0.25)",color:"#ffffff"}}
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
               >
                 Get in Touch
               </Link>
@@ -634,10 +508,7 @@ export default function AboutPage() {
           </div>
         </FadeUp>
       </section>
-<<<<<<< HEAD
-    </>
-=======
     </div>
->>>>>>> 3ec4f9698ea500426404e7554e8195176bf740a1
   );
 }
+
