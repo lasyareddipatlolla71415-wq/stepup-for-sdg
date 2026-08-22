@@ -227,10 +227,10 @@ export default function ProjectsPage() {
           />
 
           <div className="mt-12 grid gap-10">
-            {projects.map(({ name, description, backgroundImage, href }, index) => (
+            {projects.map(({ name, description, backgroundImage, sdgIcon, href }, index) => (
               <ProjectCard
                 key={name}
-                project={{ name, description, backgroundImage, href }}
+                project={{ name, description, backgroundImage, sdgIcon, href }}
                 index={index}
               />
             ))}

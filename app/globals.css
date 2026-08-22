@@ -850,12 +850,20 @@
   animation: scrollX 40s linear infinite;
 }
 @keyframes scrollX {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Tailwind animate-marquee utility */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+.group:hover .group-hover\:[animation-play-state\:paused] {
+  animation-play-state: paused;
 }
 
 .glass {
@@ -1542,4 +1550,219 @@
   .proj-img {
     transition: none !important;
   }
+}
+
+
+/* --------------------------------------------------------------------------
+   RAHINI GLOBAL PREMIUM ATMOSPHERE
+   One continuous background language for every public page and section.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rahini-surface: #F8FBFF;
+  --rahini-mint: rgba(126, 230, 205, 0.18);
+  --rahini-cyan: rgba(83, 190, 255, 0.14);
+  --rahini-lavender: rgba(140, 124, 255, 0.08);
+  --rahini-glow: rgba(255, 255, 255, 0.76);
+}
+
+html,
+body {
+  background: var(--rahini-surface) !important;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* The wrapper is intentionally shared by Home and every public route. */
+.rahini-unified-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse 82% 62% at 50% 18%,
+      rgba(126, 230, 205, 0.22) 0%,
+      rgba(126, 230, 205, 0.09) 34%,
+      transparent 70%),
+    radial-gradient(ellipse 66% 58% at 8% 58%,
+      rgba(83, 190, 255, 0.13) 0%,
+      transparent 68%),
+    radial-gradient(ellipse 62% 54% at 92% 72%,
+      rgba(140, 124, 255, 0.08) 0%,
+      transparent 66%),
+    var(--rahini-surface);
+  overflow: clip;
+}
+
+/* Animated ambient light layer */
+.rahini-unified-page::before,
+.rahini-unified-page::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.rahini-unified-page::before {
+  background:
+    radial-gradient(circle at 18% 24%,
+      rgba(119, 236, 199, 0.19) 0,
+      transparent 23%),
+    radial-gradient(circle at 78% 30%,
+      rgba(86, 196, 255, 0.16) 0,
+      transparent 22%),
+    radial-gradient(circle at 52% 78%,
+      rgba(174, 145, 255, 0.10) 0,
+      transparent 24%);
+  filter: blur(48px);
+  animation: rahiniAmbientDrift 18s ease-in-out infinite alternate;
+}
+
+.rahini-unified-page::after {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.30) 42%,
+      transparent 58%
+    );
+  opacity: 0.42;
+  transform: translate3d(-12%, -4%, 0) rotate(-3deg);
+  animation: rahiniLightSweep 16s ease-in-out infinite;
+}
+
+@keyframes rahiniAmbientDrift {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(0.98);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(-1%, 4%, 0) scale(1);
+  }
+}
+
+@keyframes rahiniLightSweep {
+  0%, 100% {
+    transform: translate3d(-18%, -6%, 0) rotate(-3deg);
+    opacity: 0.20;
+  }
+  50% {
+    transform: translate3d(16%, 7%, 0) rotate(-1deg);
+    opacity: 0.44;
+  }
+}
+
+/* Every public page and section inherits the exact same Home surface. */
+.rahini-unified-page,
+.rahini-unified-page main,
+.rahini-unified-page section,
+.rahini-unified-page article {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Keep every public section on the same atmospheric surface.
+   Foreground cards/forms are not affected because they are normally divs. */
+.rahini-unified-page section,
+.rahini-unified-page main {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Page-level wrappers from the older pages should not introduce white/gray slabs. */
+.rahini-unified-page main > * {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Preserve deliberate foreground surfaces such as glass/card elements. */
+.rahini-unified-page .glass-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(18px);
+}
+
+/* Premium glass navigation shared by the public site. */
+.rahini-unified-page .site-navbar,
+.rahini-unified-page header {
+  background: rgba(248, 251, 255, 0.78) !important;
+  border-color: rgba(126, 170, 190, 0.18) !important;
+  box-shadow: 0 10px 35px rgba(20, 75, 100, 0.06);
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+}
+
+/* Same surface language for the public footer. */
+.rahini-unified-page footer {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248, 251, 255, 0.84) 0%,
+      rgba(235, 249, 246, 0.78) 100%
+    ) !important;
+  color: #071B4A;
+  border-top: 1px solid rgba(126, 170, 190, 0.18) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Reduce the visual impact of old hard-coded page background utilities
+   while retaining their foreground cards. */
+.rahini-unified-page .bg-white\/95,
+.rahini-unified-page .bg-white\/90,
+.rahini-unified-page .bg-white\/85,
+.rahini-unified-page .bg-white\/80,
+.rahini-unified-page .bg-\[\#FFFFFF\],
+.rahini-unified-page .bg-\[\#F7FAFF\],
+.rahini-unified-page .bg-\[\#EEF6FF\],
+.rahini-unified-page .bg-\[\#F8FBFF\] {
+  background-color: rgba(248, 251, 255, 0.72) !important;
+}
+
+/* Soft animated specks: subtle, premium, and deliberately low contrast. */
+.rahini-unified-page .rahini-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.rahini-unified-page .rahini-particles::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 8% 18%, rgba(10, 91, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 72%, rgba(34, 197, 94, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 46% 28%, rgba(66, 165, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 71% 62%, rgba(140, 124, 255, 0.10) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 24%, rgba(34, 197, 94, 0.10) 0 1px, transparent 2px);
+  background-size: 320px 260px, 380px 310px, 420px 340px, 360px 290px, 440px 350px;
+  animation: rahiniParticlesFloat 22s linear infinite;
+}
+
+@keyframes rahiniParticlesFloat {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(28px, -20px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rahini-unified-page::before,
+  .rahini-unified-page::after,
+  .rahini-unified-page .rahini-particles::before {
+    animation: none;
+  }
+}
+
+@keyframes rahiniFormFloat {
+  0% { transform: translate3d(-12px, -6px, 0) scale(0.98); }
+  100% { transform: translate3d(16px, 12px, 0) scale(1.04); }
 }

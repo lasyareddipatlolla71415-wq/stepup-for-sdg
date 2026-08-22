@@ -134,8 +134,8 @@ export function Footer() {
     <footer
       className="relative mt-0"
       style={{
-        background: "linear-gradient(180deg, #0a0f1e 0%, #020814 100%)",
-        borderTop: "1px solid rgba(255,255,255,0.08)",
+        background: "linear-gradient(180deg, rgba(248,251,255,0.82) 0%, rgba(235,249,246,0.78) 100%)",
+        borderTop: "1px solid rgba(126,170,190,0.18)",
       }}
     >
       <div className="mx-auto max-w-7xl px-6 py-10 grid gap-8 md:grid-cols-4">
@@ -143,7 +143,7 @@ export function Footer() {
           <Link
             href="/"
             aria-label="Go to the home page"
-            className="inline-block -ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020814]"
+            className="inline-block -ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8FBFF]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <span className="inline-flex h-24 w-24 items-center justify-center rounded-full overflow-hidden bg-white">
@@ -156,7 +156,7 @@ export function Footer() {
           </Link>
           <p
             className="text-sm leading-relaxed max-w-xs"
-            style={{ color: "#94a3b8" }}
+            style={{ color: "#50657A" }}
           >
             Educating students on the UN Sustainable Development Goals,
             empowering them to adopt sustainable lifestyles, make informed
@@ -171,10 +171,10 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={ariaLabel}
-                className="h-10 w-10 grid place-items-center rounded-full transition-all duration-300 cursor-pointer hover:text-[#00D4FF] hover:border-[#00D4FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020814]"
+                className="h-10 w-10 grid place-items-center rounded-full transition-all duration-300 cursor-pointer hover:text-[#00D4FF] hover:border-[#00D4FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8FBFF]"
                 style={{
                   border: "1px solid rgba(255,255,255,0.15)",
-                  color: "#94a3b8",
+                  color: "#50657A",
                 }}
               >
                 {icon}
@@ -186,7 +186,7 @@ export function Footer() {
         <div>
           <h4
             className="text-sm font-bold uppercase tracking-[0.15em] mb-5"
-            style={{ color: "#f1f5f9" }}
+            style={{ color: "#12345A" }}
           >
             Quick Links
           </h4>
@@ -202,7 +202,7 @@ export function Footer() {
                     href={item.href}
                     aria-label={item.ariaLabel}
                     aria-current={isActive ? "page" : undefined}
-                    className={`block cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020814] ${isActive ? "text-[#00D4FF] font-semibold" : ""}`}
+                    className={`block cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8FBFF] ${isActive ? "text-[#00D4FF] font-semibold" : ""}`}
                     style={{ color: isActive ? "#00D4FF" : "#94a3b8" }}
                   >
                     {item.label}
@@ -216,7 +216,7 @@ export function Footer() {
         <div>
           <h4
             className="text-sm font-bold uppercase tracking-[0.15em] mb-5"
-            style={{ color: "#f1f5f9" }}
+            style={{ color: "#12345A" }}
           >
             Who We Serve
           </h4>
@@ -232,7 +232,7 @@ export function Footer() {
                     href={item.href}
                     aria-label={item.ariaLabel}
                     aria-current={isActive ? "page" : undefined}
-                    className={`block cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020814] ${isActive ? "text-[#00D4FF] font-semibold" : ""}`}
+                    className={`block cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8FBFF] ${isActive ? "text-[#00D4FF] font-semibold" : ""}`}
                     style={{ color: isActive ? "#00D4FF" : "#94a3b8" }}
                   >
                     {item.label}
@@ -246,13 +246,13 @@ export function Footer() {
         <div>
           <h4
             className="text-sm font-bold uppercase tracking-[0.15em] mb-5"
-            style={{ color: "#f1f5f9" }}
+            style={{ color: "#12345A" }}
           >
             Contact
           </h4>
           <div
             className="flex flex-col gap-3 text-sm"
-            style={{ color: "#94a3b8" }}
+            style={{ color: "#50657A" }}
           >
             {contactDetails.map((item, index) => (
               <div
@@ -261,15 +261,15 @@ export function Footer() {
               >
                 <span
                   className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-                  style={{ color: "#f1f5f9" }}
+                  style={{ color: "#12345A" }}
                 >
                   {item.type}:
                 </span>
                 <a
                   href={item.href}
                   aria-label={item.ariaLabel}
-                  className="cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020814]"
-                  style={{ color: "#94a3b8" }}
+                  className="cursor-pointer hover:text-[#00D4FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8FBFF]"
+                  style={{ color: "#50657A" }}
                 >
                   {item.label}
                 </a>
@@ -281,11 +281,11 @@ export function Footer() {
 
       <div
         className="py-5 px-6"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+        style={{ borderTop: "1px solid rgba(126,170,190,0.18)" }}
       >
         <div
           className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-2 text-xs"
-          style={{ color: "#94a3b8" }}
+          style={{ color: "#50657A" }}
         >
           <span>
             Pavdhan Foundation © {new Date().getFullYear()}. All rights

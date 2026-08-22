@@ -231,4 +231,3 @@ export const globalImpact = {
   label: "Lives Positively Impacted",
   desc: "Every category above adds up to one connected movement — students, schools, volunteers, NGOs, communities and companies, working as one.",
 };
-

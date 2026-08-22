@@ -294,4 +294,3 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
     </div>
   );
 }
-

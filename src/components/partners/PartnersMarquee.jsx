@@ -70,11 +70,9 @@ export default function PartnersMarquee() {
         <button
           onClick={() => handleScroll('left')}
           aria-label="Previous logos"
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full
-                     bg-white/95 backdrop-blur-md shadow-lg flex items-center justify-center text-[#071B4A]
-                     hover:text-[#0A5BFF] hover:scale-110 active:scale-95 z-20 transition-all duration-200 border border-white"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 backdrop-blur-md shadow-lg flex items-center justify-center text-[#071B4A] hover:text-[#0A5BFF] hover:scale-110 active:scale-95 z-20 transition-all duration-200 border border-white"
         >
-          
+          <FiChevronLeft size={20} />
         </button>
 
         {/* Scrolling track */}
@@ -120,11 +118,9 @@ export default function PartnersMarquee() {
         <button
           onClick={() => handleScroll('right')}
           aria-label="Next logos"
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full
-                     bg-white/95 backdrop-blur-md shadow-lg flex items-center justify-center text-[#071B4A]
-                     hover:text-[#0A5BFF] hover:scale-110 active:scale-95 z-20 transition-all duration-200 border border-white"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/95 backdrop-blur-md shadow-lg flex items-center justify-center text-[#071B4A] hover:text-[#0A5BFF] hover:scale-110 active:scale-95 z-20 transition-all duration-200 border border-white"
         >
-          
+          <FiChevronRight size={20} />
         </button>
       </motion.div>
     </section>

@@ -13,6 +13,30 @@ import {
 
 import { addContactMessage } from "@/app/lib/adminStore";
 
+import {
+  Manrope,
+  Cormorant_Garamond,
+} from "next/font/google";
+
+
+/* =========================================================
+   FONTS
+========================================================= */
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["italic"],
+  display: "swap",
+});
+
+
 /* =========================================================
    CONTACT PAGE
 ========================================================= */
@@ -96,7 +120,7 @@ export default function ContactPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#F8F5E9] text-[#12372A] font-manrope"
+      className={`${manrope.className} min-h-screen bg-[#F8F5E9] text-[#12372A]`}
     >
 
       {/* =====================================================

@@ -283,4 +283,3 @@ export function addWaterConservationRegistration(r: Omit<WaterConservationRegist
   const stats = getAdminStats()
   save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
 }
-

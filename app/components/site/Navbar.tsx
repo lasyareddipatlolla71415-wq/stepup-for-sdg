@@ -107,7 +107,7 @@ function LanguageSelect() {
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-[#E2E8F0] bg-white/80 px-2.5 py-1.5 text-xs font-semibold text-[#0F172A] transition hover:border-[#155DFC]"
+        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-[#BFD9D8]/50 bg-[#F8FBFF]/70 px-2.5 py-1.5 text-xs font-semibold text-[#0F172A] transition hover:border-[#155DFC]"
       >
         <Globe className="h-3.5 w-3.5 shrink-0" />
         <span className="max-w-[80px] truncate">{shortLabel}</span>
@@ -117,7 +117,7 @@ function LanguageSelect() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-52 rounded-xl border border-[#E2E8F0] bg-white shadow-lg z-50 overflow-y-auto max-h-80">
+        <div className="absolute right-0 top-full mt-2 w-52 rounded-xl border border-[#BFD9D8]/50 bg-[#F8FBFF]/95 shadow-lg z-50 overflow-y-auto max-h-80">
           {LANGUAGES.map((l) => (
             <button
               key={l.code}
@@ -140,7 +140,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white border-b border-[#E2E8F0]">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#F8FBFF]/78 border-b border-[#BFD9D8]/40">
       <div className="flex h-24 w-full items-center justify-between px-32 lg:px-44">
         <Link href="/" className="shrink-0 flex items-center group">
           <span className="inline-flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm border border-[#E2E8F0]">
@@ -205,7 +205,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-[#E2E8F0] bg-white/95 px-6 py-4 space-y-3">
+        <div className="md:hidden border-t border-[#BFD9D8]/40 bg-[#F8FBFF]/92 px-6 py-4 space-y-3">
           {navLinks.map((l) =>
             l.disabled ? (
               <span
