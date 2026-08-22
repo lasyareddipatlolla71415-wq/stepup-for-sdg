@@ -50,7 +50,7 @@ const ViksitIndiaSection = () => {
           {/* Left Column */}
           <div className="w-full lg:w-1/2 flex flex-col items-start gap-6">
             <div className="inline-flex px-4 py-2 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-semibold tracking-wider uppercase items-center gap-2">
-              <span>✅</span> United for Tomorrow
+              United for Tomorrow
             </div>
             
             <h2 className="text-brand-navy text-5xl md:text-6xl font-extrabold leading-tight">
@@ -107,7 +107,7 @@ const ViksitIndiaSection = () => {
               {/* Satellites */}
               {[
                 { 
-                  icon: '🎓', 
+                  icon: '', 
                   title: 'Quality Education', 
                   top: '5%', 
                   left: '12%', 
@@ -116,7 +116,7 @@ const ViksitIndiaSection = () => {
                   img: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=500&q=80' 
                 },
                 { 
-                  icon: '🌱', 
+                  icon: '', 
                   title: 'Life on Land', 
                   top: '10%', 
                   right: '0%', 
@@ -125,7 +125,7 @@ const ViksitIndiaSection = () => {
                   img: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=500&q=80' 
                 },
                 { 
-                  icon: '💧', 
+                  icon: '', 
                   title: 'Clean Water &\nSanitation', 
                   top: '48%', 
                   left: '-2%', 
@@ -134,7 +134,7 @@ const ViksitIndiaSection = () => {
                   img: 'https://images.unsplash.com/photo-1538300342682-cf57afb97285?auto=format&fit=crop&w=500&q=80' 
                 },
                 { 
-                  icon: '🤝', 
+                  icon: '', 
                   title: 'Partnerships\nfor Goals', 
                   bottom: '20%', 
                   right: '0%', 
@@ -143,7 +143,7 @@ const ViksitIndiaSection = () => {
                   img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80' 
                 },
                 { 
-                  icon: '🏛️', 
+                  icon: '', 
                   title: 'Sustainable\nCommunities', 
                   bottom: '0%', 
                   left: '32%', 
@@ -189,37 +189,22 @@ const ViksitIndiaSection = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-gray-200/60">
               
               <div className="flex items-center gap-4 lg:px-4 first:pl-0 pt-4 lg:pt-0 first:pt-0">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center text-green-600">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
                 <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">25K+ Students Empowered</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0 md:pt-0">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center text-blue-500">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-                </div>
                 <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">300+ Institutions Connected</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center text-red-500">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                </div>
                 <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">150+ NGO Partners</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0 md:pt-0">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center text-orange-500">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
                 <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">40+ Corporate Partners</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center text-green-500">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22V12"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M8 6a4 4 0 0 1 8 0c0 4-4 6-4 6s-4-2-4-6z"/></svg>
-                </div>
                 <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">500+ Communities Impacted</div>
               </div>
 

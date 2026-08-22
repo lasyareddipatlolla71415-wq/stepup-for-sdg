@@ -60,10 +60,6 @@ export default function AboutPage() {
 
           {/* ── Left: text ── */}
           <FadeUp>
-            <span className="inline-block rounded-full border border-[rgba(21,93,252,0.25)] bg-[rgba(21,93,252,0.07)] px-4 py-1 text-xs font-semibold uppercase tracking-widest text-[#155dfc]">
-              Non-Profit · Education · SDGs
-            </span>
-
             <h1 className="mt-5 font-display font-bold text-[#0d1b3e]" style={{fontSize:"56px",lineHeight:"68px"}}>
               Purpose-driven{" "}
               <span className="relative inline-block">

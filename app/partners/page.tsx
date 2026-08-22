@@ -1515,12 +1515,6 @@ export default function PartnersPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4 lg:gap-6">
               {/* Stat 1: 9 Verified Partners */}
               <div className="flex items-center gap-4 px-3 sm:px-4 lg:border-r border-slate-200 dark:border-slate-800/80">
-                <div
-                  className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full"
-                  style={{ background: "rgba(0,194,255,0.12)", color: "#00c2ff", border: "1.5px solid rgba(0,194,255,0.25)", width: 52, height: 52 }}
-                >
-                  <Icon.Users className="w-6 h-6" />
-                </div>
                 <div className="flex flex-col">
                   <div className="text-[56px] sm:text-[64px] font-extrabold tracking-tight leading-none" style={{ color: "#00c2ff" }}>
                     <RollingNumber to={9} duration={1800} />
@@ -1536,12 +1530,6 @@ export default function PartnersPage() {
 
               {/* Stat 2: 6 States Reached */}
               <div className="flex items-center gap-4 px-3 sm:px-4 lg:border-r border-slate-200 dark:border-slate-800/80">
-                <div
-                  className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full"
-                  style={{ background: "rgba(0,208,132,0.12)", color: "#00d084", border: "1.5px solid rgba(0,208,132,0.25)", width: 52, height: 52 }}
-                >
-                  <Icon.MapPin className="w-6 h-6" />
-                </div>
                 <div className="flex flex-col">
                   <div className="text-[56px] sm:text-[64px] font-extrabold tracking-tight leading-none" style={{ color: "#00d084" }}>
                     <RollingNumber to={6} duration={1800} />
@@ -1557,12 +1545,6 @@ export default function PartnersPage() {
 
               {/* Stat 3: Rs 1.2 Cr CSR Co-funding */}
               <div className="flex items-center gap-4 px-3 sm:px-4 lg:border-r border-slate-200 dark:border-slate-800/80">
-                <div
-                  className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full"
-                  style={{ background: "rgba(21,93,252,0.12)", color: "#155dfc", border: "1.5px solid rgba(21,93,252,0.25)", width: 52, height: 52 }}
-                >
-                  <Icon.Rupee className="w-6 h-6" />
-                </div>
                 <div className="flex flex-col">
                   <div className="text-[52px] sm:text-[60px] font-extrabold tracking-tight leading-none whitespace-nowrap" style={{ color: "#155dfc" }}>
                     <RollingNumber to={1.2} decimals={1} prefix="Rs " suffix=" Cr" duration={1800} />
@@ -1578,12 +1560,6 @@ export default function PartnersPage() {
 
               {/* Stat 4: 12,000+ Students Impacted */}
               <div className="flex items-center gap-4 px-3 sm:px-4">
-                <div
-                  className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full"
-                  style={{ background: "rgba(251,191,36,0.12)", color: "#fbbf24", border: "1.5px solid rgba(251,191,36,0.25)", width: 52, height: 52 }}
-                >
-                  <Icon.Star className="w-6 h-6" />
-                </div>
                 <div className="flex flex-col">
                   <div className="text-[56px] sm:text-[64px] font-extrabold tracking-tight leading-none whitespace-nowrap" style={{ color: "#fbbf24" }}>
                     <RollingNumber to={12000} suffix="+" duration={1800} />
@@ -1600,7 +1576,7 @@ export default function PartnersPage() {
           </div>
 
           {/* Quote / Motto - Cormorant Garamond Italic / Ruluko 26px / 400 / 38px */}
-          <div className="flex items-center justify-center gap-2.5 mt-12 mb-10 text-center" style={{ color: theme.muted }}>
+          <div className="flex items-center justify-center gap-2.5 mt-6 mb-4 text-center" style={{ color: theme.muted }}>
             <Icon.Leaf className="w-5 h-5 text-emerald-500 shrink-0" />
             <span className="font-quote italic text-[22px] sm:text-[26px] lg:text-[26px] font-normal leading-[32px] sm:leading-[38px] lg:leading-[38px]">
               Together, we can build a more{" "}
@@ -1613,7 +1589,7 @@ export default function PartnersPage() {
       </section>
 
       {/* -- PARTNER DIRECTORY SECTION -- */}
-      <section id="directory" className="max-w-7xl mx-auto pt-28 pb-14 sm:pt-36 sm:pb-16 px-6 sm:px-10 lg:px-12 relative z-10" style={{ background: "transparent" }}>
+      <section id="directory" className="max-w-7xl mx-auto pt-8 pb-14 px-6 sm:px-10 lg:px-12 relative z-10" style={{ background: "transparent" }}>
         {/* Subtle Ambient Particle Glow on Left & Right */}
         <div
           className="pointer-events-none absolute -left-20 top-20 w-[450px] h-[450px] rounded-full blur-3xl opacity-40 dark:opacity-25"
@@ -1628,19 +1604,6 @@ export default function PartnersPage() {
 
         <Reveal>
           <div className="text-center mb-12 relative z-10">
-            {/* Top Pill Badge: OUR PARTNER ECOSYSTEM */}
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-bold tracking-wider uppercase leading-[18px] mb-4 border shadow-sm"
-              style={{
-                background: isDark ? "rgba(21,93,252,0.15)" : "rgba(21,93,252,0.08)",
-                borderColor: isDark ? "rgba(0,194,255,0.3)" : "rgba(21,93,252,0.2)",
-                color: isDark ? "#00c2ff" : "#155dfc",
-              }}
-            >
-              <Icon.Shield className="w-3.5 h-3.5" />
-              <span>Our Partner Ecosystem</span>
-            </div>
-
             {/* Page Heading (H2) - Building Impact, Together. */}
             <h2 className="text-[40px] sm:text-[48px] lg:text-[56px] font-bold tracking-tight leading-[48px] sm:leading-[60px] lg:leading-[68px] mb-3" style={{ color: theme.text }}>
               Building Impact,<br />
@@ -1767,17 +1730,6 @@ export default function PartnersPage() {
       >
         <div className="relative z-10 text-center mb-16">
           <Reveal>
-            {/* Label - Manrope 12px / 500 / 18px */}
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-medium uppercase tracking-widest leading-[18px] mb-4"
-              style={{
-                background: isDark ? "rgba(0,194,255,0.12)" : "rgba(21,93,252,0.1)",
-                border: `1px solid ${theme.accent}35`,
-                color: theme.accent,
-              }}
-            >
-              Join the ecosystem
-            </span>
             {/* Section Heading (H2) - Manrope 48px / 700 / 60px */}
             <h2 className="text-[32px] sm:text-[42px] lg:text-[48px] font-bold tracking-tight leading-[40px] sm:leading-[52px] lg:leading-[60px] mb-4" style={{ color: theme.text }}>
               Partner with{" "}
@@ -1902,23 +1854,6 @@ export default function PartnersPage() {
                   }}
                 >
                   <div className="flex items-center gap-3.5 mb-3.5">
-                    <span
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-                      style={{
-                        background: isDark ? "rgba(0,194,255,0.12)" : "rgba(21,93,252,0.06)",
-                        border: `1px solid ${isDark ? "#00c2ff" : "#155DFC"}30`,
-                      }}
-                    >
-                      {model.icon === "Heart" && (
-                        <Icon.Heart className="w-4 h-4" style={{ color: isDark ? "#00c2ff" : "#155DFC" }} />
-                      )}
-                      {model.icon === "Users" && (
-                        <Icon.Users className="w-4 h-4" style={{ color: isDark ? "#00c2ff" : "#155DFC" }} />
-                      )}
-                      {model.icon === "Megaphone" && (
-                        <Icon.Megaphone className="w-4 h-4" style={{ color: isDark ? "#00c2ff" : "#155DFC" }} />
-                      )}
-                    </span>
                     {/* Small Heading (H5) - Manrope 24px / 600 / 34px */}
                     <h4 className="text-[20px] sm:text-[22px] lg:text-[24px] font-semibold leading-[28px] sm:leading-[30px] lg:leading-[34px]" style={{ color: theme.text }}>
                       {model.title}

@@ -8,9 +8,6 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isAdmin = pathname.startsWith('/admin')
 
-  // One public-site shell for every public route.
-  // This makes the MAIN project navbar and the Home/Rahini footer
-  // consistent across Home, About, SDG, Partners, Contact, forms, etc.
   if (isAdmin) return <>{children}</>
 
   return (

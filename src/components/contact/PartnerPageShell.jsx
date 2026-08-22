@@ -48,11 +48,7 @@ const PartnerPageShell = ({ themeKey = 'corporate', children }) => {
   const theme = THEMES[themeKey] || THEMES.corporate;
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-950 font-poppins flex flex-col">
-      {/* Navbar: fixed at ~80px tall, reserved space is added below via pt-20 on .page-content */}
-      <header className="site-navbar">
-        <Navbar />
-      </header>
+    <div className="min-h-screen overflow-x-hidden font-poppins flex flex-col">
 
       {/* Main Page Content: starts below the navbar, which now participates in layout flow */}
       <main className="page-content relative flex-1 flex flex-col justify-start">
@@ -62,18 +58,10 @@ const PartnerPageShell = ({ themeKey = 'corporate', children }) => {
 
           {/* Full-Screen High-Res Background Image */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 opacity-50"
             style={{ backgroundImage: `url("${theme.bgImage}")` }}
           />
 
-          {/* Premium Overlay */}
-          <div className={`absolute inset-0 ${theme.overlay} z-0`} />
-          <div className="absolute inset-0 bg-white/15 z-[5] pointer-events-none" />
-
-          {/* Decorative Floating Ambient Elements */}
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[400px] ${theme.glowColor} rounded-full blur-[100px]`} />
-          </div>
 
           {/* Foreground Content */}
           <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 lg:px-8 w-full">
@@ -135,9 +123,6 @@ const PartnerPageShell = ({ themeKey = 'corporate', children }) => {
         </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

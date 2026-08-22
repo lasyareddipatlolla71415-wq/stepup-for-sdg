@@ -9,8 +9,6 @@ import {
   HiOutlineHeart, 
   HiOutlineUsers 
 } from 'react-icons/hi';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 25 },
@@ -59,8 +57,6 @@ export default function WorkWithUsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FBFF] overflow-x-hidden font-poppins relative flex flex-col justify-between">
-      {/* Navbar */}
-      <Navbar />
 
       {/* Hero & Content Wrapper */}
       <main className="flex-1">
@@ -172,9 +168,6 @@ export default function WorkWithUsPage() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
