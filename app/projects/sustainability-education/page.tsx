@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { Counter } from '@/app/components/site/Counter';
 import { FadeUp } from '@/app/components/site/FadeUp';
+import { addSustainabilityRegistration } from '@/app/lib/adminStore';
 
 const headingFont = '"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif';
 
@@ -116,6 +117,7 @@ export default function SustainabilityEducationPage() {
       setErrorMessage('Please fill out all fields before continuing.');
       return;
     }
+    addSustainabilityRegistration({ fullName, email, phone, country, organization })
     router.push('/projects/sustainability-education/lesson');
   }
 

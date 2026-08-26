@@ -119,6 +119,60 @@ export type Story = {
   updatedAt: string
 }
 
+export type SdgEducationRegistration = {
+  id: number
+  schoolName: string
+  schoolType: string
+  contactName: string
+  email: string
+  phone: string
+  city: string
+  state: string
+  studentCount: string
+  grade: string
+  message: string
+  submittedAt: string
+  status: SubmissionStatus
+}
+
+export type SustainabilityRegistration = {
+  id: number
+  fullName: string
+  email: string
+  phone: string
+  country: string
+  organization: string
+  submittedAt: string
+  status: SubmissionStatus
+}
+
+export type CertificateSubmission = {
+  id: number
+  fullName: string
+  email: string
+  course: string
+  fileName: string
+  fileDataUrl: string
+  submittedAt: string
+  status: SubmissionStatus
+}
+
+export type CleanCommunityRegistration = {
+  id: number
+  orgName: string
+  orgType: string
+  contactName: string
+  email: string
+  phone: string
+  city: string
+  state: string
+  size: string
+  sdgFocus: string
+  message: string
+  submittedAt: string
+  status: SubmissionStatus
+}
+
 export type AdminStats = {
   totalPartners: number
   totalProjects: number
@@ -130,6 +184,14 @@ export type AdminStats = {
   studentContributions: number
 }
 
+export type SiteStats = {
+  studentsEmpowered: number
+  institutionsConnected: number
+  ngoPartners: number
+  corporatePartners: number
+  communitiesImpacted: number
+}
+
 // ─── Storage keys ─────────────────────────────────────────────────────────────
 
 const KEYS = {
@@ -138,11 +200,16 @@ const KEYS = {
   volunteers: 'stepup_volunteer_submissions',
   eventRequests: 'stepup_event_requests',
   stats: 'stepup_admin_stats',
+  siteStats: 'stepup_site_stats',
   donations: 'stepup_donations',
   fellowships: 'stepup_fellowship_listings',
   waterConservation: 'stepup_water_conservation_registrations',
   newsletter: 'stepup_newsletter_subscribers',
   stories: 'stepup_stories',
+  sdgEducation: 'stepup_sdg_education_registrations',
+  sustainability: 'stepup_sustainability_registrations',
+  cleanCommunity: 'stepup_clean_community_registrations',
+  certificates: 'stepup_certificate_submissions',
 }
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
@@ -174,6 +241,14 @@ const DEFAULT_STATS: AdminStats = {
   pendingRequests: 24,
   activeCampaigns: 38,
   studentContributions: 4820,
+}
+
+const DEFAULT_SITE_STATS: SiteStats = {
+  studentsEmpowered: 25000,
+  institutionsConnected: 300,
+  ngoPartners: 150,
+  corporatePartners: 40,
+  communitiesImpacted: 500,
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -258,6 +333,15 @@ export function getAdminStats(): AdminStats {
 export function updateAdminStats(patch: Partial<AdminStats>) {
   const stats = getAdminStats()
   save(KEYS.stats, { ...stats, ...patch })
+}
+
+export function getSiteStats(): SiteStats {
+  return load(KEYS.siteStats, DEFAULT_SITE_STATS)
+}
+
+export function updateSiteStats(patch: Partial<SiteStats>) {
+  const stats = getSiteStats()
+  save(KEYS.siteStats, { ...stats, ...patch })
 }
 
 // ─── Volunteer Submissions ─────────────────────────────────────────────────────
@@ -358,4 +442,76 @@ export function getStories(): Story[] {
 
 export function saveStories(stories: Story[]) {
   save(KEYS.stories, stories)
+}
+
+// ─── SDG Education Registrations ───────────────────────────────────────────────
+
+export function getSdgEducationRegistrations(): SdgEducationRegistration[] {
+  return load(KEYS.sdgEducation, [])
+}
+
+export function addSdgEducationRegistration(r: Omit<SdgEducationRegistration, 'id' | 'submittedAt' | 'status'>) {
+  const list = getSdgEducationRegistrations()
+  save(KEYS.sdgEducation, [{ ...r, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0], status: 'pending' as SubmissionStatus }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+
+export function updateSdgEducationStatus(id: number, status: SubmissionStatus) {
+  const list = getSdgEducationRegistrations()
+  save(KEYS.sdgEducation, list.map(r => r.id === id ? { ...r, status } : r))
+}
+
+// ─── Sustainability Registrations ──────────────────────────────────────────────────
+
+export function getSustainabilityRegistrations(): SustainabilityRegistration[] {
+  return load(KEYS.sustainability, [])
+}
+
+export function addSustainabilityRegistration(r: Omit<SustainabilityRegistration, 'id' | 'submittedAt' | 'status'>) {
+  const list = getSustainabilityRegistrations()
+  save(KEYS.sustainability, [{ ...r, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0], status: 'pending' as SubmissionStatus }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+
+export function updateSustainabilityStatus(id: number, status: SubmissionStatus) {
+  const list = getSustainabilityRegistrations()
+  save(KEYS.sustainability, list.map(r => r.id === id ? { ...r, status } : r))
+}
+
+// ─── Clean Community Registrations ────────────────────────────────────────────────
+
+export function getCleanCommunityRegistrations(): CleanCommunityRegistration[] {
+  return load(KEYS.cleanCommunity, [])
+}
+
+export function addCleanCommunityRegistration(r: Omit<CleanCommunityRegistration, 'id' | 'submittedAt' | 'status'>) {
+  const list = getCleanCommunityRegistrations()
+  save(KEYS.cleanCommunity, [{ ...r, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0], status: 'pending' as SubmissionStatus }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+
+export function updateCleanCommunityStatus(id: number, status: SubmissionStatus) {
+  const list = getCleanCommunityRegistrations()
+  save(KEYS.cleanCommunity, list.map(r => r.id === id ? { ...r, status } : r))
+}
+
+// ─── Certificate Submissions ───────────────────────────────────────────────────
+
+export function getCertificateSubmissions(): CertificateSubmission[] {
+  return load(KEYS.certificates, [])
+}
+
+export function addCertificateSubmission(r: Omit<CertificateSubmission, 'id' | 'submittedAt' | 'status'>) {
+  const list = getCertificateSubmissions()
+  save(KEYS.certificates, [{ ...r, id: Date.now(), submittedAt: new Date().toISOString().split('T')[0], status: 'pending' as SubmissionStatus }, ...list])
+  const stats = getAdminStats()
+  save(KEYS.stats, { ...stats, pendingRequests: stats.pendingRequests + 1 })
+}
+
+export function updateCertificateStatus(id: number, status: SubmissionStatus) {
+  const list = getCertificateSubmissions()
+  save(KEYS.certificates, list.map(r => r.id === id ? { ...r, status } : r))
 }

@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useDashboardTheme } from '../ThemeContext'
 import {
-  getVolunteerSubmissions, getFellowshipListings, getWaterConservationRegistrations,
-  getPartnershipSubmissions,
+  getFellowshipListings, getWaterConservationRegistrations,
+  getSdgEducationRegistrations, getSustainabilityRegistrations, getCleanCommunityRegistrations,
 } from '@/app/lib/adminStore'
 
 type Project = {
@@ -12,9 +13,8 @@ type Project = {
   name: string
   description: string
   sdgs: number[]
-  icon: string
   color: string
-  registrationKey: 'volunteers' | 'fellowship' | 'water' | 'partnerships' | 'none'
+  registrationKey: 'fellowship' | 'water' | 'sdgEducation' | 'sustainability' | 'cleanCommunity'
   href: string
   includes: string[]
 }
@@ -24,72 +24,69 @@ const PROJECTS: Project[] = [
     id: 'sdg-education',
     name: 'SDG Education for Students',
     description: 'Empowering students with knowledge about the 17 Sustainable Development Goals through structured curriculum and workshops.',
-    sdgs: [4, 17],
-    icon: '📚',
-    color: '#3b6ef6',
-    registrationKey: 'volunteers',
+    sdgs: [4, 13, 15],
+    color: '#c5192d',
+    registrationKey: 'sdgEducation',
     href: '/projects/sdg-education',
-    includes: ['SDG curriculum modules', 'Student workshops', 'Teacher training', 'Impact assessments'],
+    includes: ['Teaching SDG', 'SDG Certification', 'Schools Outreach', 'Stationery Distribution', 'Tree Plantation'],
   },
   {
     id: 'sustainability-education',
     name: 'Sustainability Education Program',
-    description: 'A comprehensive program teaching sustainability practices to schools and colleges across India.',
-    sdgs: [4, 13, 15],
-    icon: '🌱',
-    color: '#10b981',
-    registrationKey: 'partnerships',
+    description: 'A free global learning journey to master the 17 UN SDGs through curated video lessons, official UN courses, and verifiable certification.',
+    sdgs: [4, 7, 13],
+    color: '#0fae83',
+    registrationKey: 'sustainability',
     href: '/projects/sustainability-education',
-    includes: ['School partnerships', 'Sustainability audits', 'Green campus initiatives', 'Annual reports'],
+    includes: ['Solar Lamp Distribution', 'UN Course Pathway', 'Certificate Verification', 'SDG Video Lessons'],
   },
   {
     id: 'fellowship',
     name: 'Fellowship Program',
     description: 'Connecting passionate individuals with NGOs and social enterprises for meaningful fellowship opportunities.',
-    sdgs: [8, 10, 17],
-    icon: '🎓',
-    color: '#8b5cf6',
+    sdgs: [4, 8, 17],
+    color: '#a21942',
     registrationKey: 'fellowship',
     href: '/projects/fellowship',
-    includes: ['Fellowship listings', 'Mentorship matching', 'Impact tracking', 'Certification'],
+    includes: ['Fellowship Listings', 'Mentorship Matching', 'Impact Tracking', 'Certification'],
   },
   {
     id: 'water-conservation',
     name: 'Water Conservation Program',
     description: 'Community-driven water conservation initiatives targeting SDG 6 — Clean Water and Sanitation.',
     sdgs: [6, 3, 11],
-    icon: '💧',
-    color: '#06b6d4',
+    color: '#26bde2',
     registrationKey: 'water',
     href: '/projects/water-conservation',
-    includes: ['Site registrations', 'Water audits', 'Community training', 'Progress monitoring'],
+    includes: ['Site Registrations', 'Water Audits', 'Community Training', 'Progress Monitoring'],
   },
   {
     id: 'clean-community',
     name: 'Clean Community Initiative',
     description: 'Mobilising youth and communities to drive cleanliness, waste management, and sustainable living.',
-    sdgs: [11, 12, 13],
-    icon: '♻️',
-    color: '#f59e0b',
-    registrationKey: 'none',
+    sdgs: [11, 13, 15],
+    color: '#3f7e44',
+    registrationKey: 'cleanCommunity',
     href: '/projects/clean-community',
-    includes: ['Community drives', 'Waste audits', 'Youth mobilisation', 'Partner NGOs'],
+    includes: ['Community Clean Drive', 'Waste Audits', 'Youth Mobilisation', 'Partner NGOs'],
   },
 ]
 
 export default function ProjectsPage() {
   const { dark } = useDashboardTheme()
+  const router = useRouter()
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [editProject, setEditProject] = useState<Project | null>(null)
   const [projects, setProjects] = useState<Project[]>(PROJECTS)
   const [editForm, setEditForm] = useState<Partial<Project>>({})
 
   useEffect(() => {
-    const volunteers    = getVolunteerSubmissions().length
-    const fellowship    = getFellowshipListings().length
-    const water         = getWaterConservationRegistrations().length
-    const partnerships  = getPartnershipSubmissions().length
-    setCounts({ volunteers, fellowship, water, partnerships, none: 0 })
+    const fellowship     = getFellowshipListings().length
+    const water          = getWaterConservationRegistrations().length
+    const sdgEducation   = getSdgEducationRegistrations().length
+    const sustainability = getSustainabilityRegistrations().length
+    const cleanCommunity = getCleanCommunityRegistrations().length
+    setCounts({ fellowship, water, sdgEducation, sustainability, cleanCommunity })
   }, [])
 
   const c = {
@@ -148,15 +145,12 @@ export default function ProjectsPage() {
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: p.color }} />
               <div style={{ padding: '20px 22px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <span style={{ fontSize: 28 }}>{p.icon}</span>
-                    <div>
-                      <div style={{ fontSize: 14.5, fontWeight: 700, color: c.textPrimary, lineHeight: 1.3 }}>{p.name}</div>
-                      <div style={{ display: 'flex', gap: 4, marginTop: 5, flexWrap: 'wrap' }}>
-                        {p.sdgs.map(s => (
-                          <span key={s} style={{ fontSize: 9.5, fontWeight: 600, color: p.color, background: `${p.color}15`, border: `1px solid ${p.color}30`, borderRadius: 4, padding: '1px 6px' }}>SDG {s}</span>
-                        ))}
-                      </div>
+                  <div>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: c.textPrimary, lineHeight: 1.3 }}>{p.name}</div>
+                    <div style={{ display: 'flex', gap: 4, marginTop: 5, flexWrap: 'wrap' }}>
+                      {p.sdgs.map(s => (
+                        <span key={s} style={{ fontSize: 9.5, fontWeight: 600, color: p.color, background: `${p.color}15`, border: `1px solid ${p.color}30`, borderRadius: 4, padding: '1px 6px' }}>SDG {s}</span>
+                      ))}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
@@ -178,10 +172,13 @@ export default function ProjectsPage() {
 
                 <div style={{ display: 'flex', gap: 8, paddingTop: 14, borderTop: `1px solid ${c.border}` }}>
                   <button onClick={() => openEdit(p)} style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${c.border}`, background: c.surfaceAlt, color: c.textPrimary, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
-                    ✏️ Edit Details
+                    Edit Details
                   </button>
-                  <a href={p.href} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${p.color}40`, background: `${p.color}10`, color: p.color, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'none', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    🔗 View Public Page
+                  <button onClick={() => router.push(`/admin/dashboard/submissions?tab=${p.registrationKey}`)} style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${p.color}40`, background: `${p.color}10`, color: p.color, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+                    View Submissions
+                  </button>
+                  <a href={p.href} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${c.border}`, background: c.surfaceAlt, color: c.textSecond, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'none', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    Public Page
                   </a>
                 </div>
               </div>

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FiHeart } from 'react-icons/fi';
 import ColorAccentLine from '../common/ColorAccentLine';
 import plantInHandsImg from '../../assets/images/plant_in_hands.jpg';
+
+const DEFAULT_STATS = {
+  studentsEmpowered: 25000,
+  institutionsConnected: 300,
+  ngoPartners: 150,
+  corporatePartners: 40,
+  communitiesImpacted: 500,
+}
 
 const leaves = [
   { top: '10%', left: '5%', delay: 0 },
@@ -21,6 +29,13 @@ const LeafIcon = () => (
 );
 
 const ViksitIndiaSection = () => {
+  const [siteStats, setSiteStats] = useState(DEFAULT_STATS)
+
+  useEffect(() => {
+    import('@/app/lib/adminStore').then(({ getSiteStats }) => {
+      setSiteStats(getSiteStats())
+    })
+  }, [])
   return (
     <section id="sdg-goals" className="py-10 overflow-hidden bg-gradient-to-b from-brand-bg via-[#F0F8F0] to-brand-bg relative font-poppins scroll-mt-24 md:scroll-mt-28">
       {/* Floating Leaves */}
@@ -189,23 +204,23 @@ const ViksitIndiaSection = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-gray-200/60">
               
               <div className="flex items-center gap-4 lg:px-4 first:pl-0 pt-4 lg:pt-0 first:pt-0">
-                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">25K+ Students Empowered</div>
+                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">{siteStats.studentsEmpowered.toLocaleString()}+ Students Empowered</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0 md:pt-0">
-                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">300+ Institutions Connected</div>
+                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">{siteStats.institutionsConnected}+ Institutions Connected</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0">
-                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">150+ NGO Partners</div>
+                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">{siteStats.ngoPartners}+ NGO Partners</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0 md:pt-0">
-                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">40+ Corporate Partners</div>
+                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">{siteStats.corporatePartners}+ Corporate Partners</div>
               </div>
 
               <div className="flex items-center gap-4 lg:px-4 pt-4 lg:pt-0">
-                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">500+ Communities Impacted</div>
+                <div className="font-bold text-gray-800 text-sm md:text-base leading-tight">{siteStats.communitiesImpacted}+ Communities Impacted</div>
               </div>
 
             </div>

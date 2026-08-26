@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: "StepUp for SDG — Global Education Impact Platform",
   description:
     "Uniting students, schools, NGOs and companies to advance SDG 4 — Quality Education — through transparent, measurable impact.",
+  icons: {
+    icon: '/SDG_LOGO-removebg-preview.png',
+    apple: '/SDG_LOGO-removebg-preview.png',
+  },
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { addSdgEducationRegistration } from '@/app/lib/adminStore';
 
 const BLUE = '#155DFC';
 const BLUE_LIGHT = '#eff6ff';
@@ -18,7 +19,10 @@ export default function SDGEducationRegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.schoolName && form.email && form.contactName) setDone(true);
+    if (form.schoolName && form.email && form.contactName) {
+      addSdgEducationRegistration(form)
+      setDone(true)
+    }
   };
 
   if (done) {

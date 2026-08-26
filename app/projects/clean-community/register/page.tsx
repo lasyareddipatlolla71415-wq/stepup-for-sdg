@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { addCleanCommunityRegistration } from '@/app/lib/adminStore';
 
 const GREEN = '#3F7E44';
 const GREEN_LIGHT = '#dcfce7';
@@ -18,7 +19,10 @@ export default function CleanCommunityRegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.orgName && form.email && form.contactName) setDone(true);
+    if (form.orgName && form.email && form.contactName) {
+      addCleanCommunityRegistration(form)
+      setDone(true)
+    }
   };
 
   if (done) {

@@ -9,29 +9,9 @@ import { useDashboardTheme } from './ThemeContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { DIRECTORY } from '@/app/components/partners/partnersData'
-import { getAdminStats, getContactMessages, getPartnershipSubmissions, getDonations, getVolunteerSubmissions, getFellowshipListings, getWaterConservationRegistrations, type AdminStats, type DonationRecord, type ContactMessage, type PartnershipSubmission } from '@/app/lib/adminStore'
+import { getAdminStats, getContactMessages, getPartnershipSubmissions, getDonations, getVolunteerSubmissions, getFellowshipListings, getWaterConservationRegistrations, getSdgEducationRegistrations, getSustainabilityRegistrations, getCleanCommunityRegistrations, getSiteStats, updateSiteStats, type AdminStats, type DonationRecord, type ContactMessage, type PartnershipSubmission, type SiteStats } from '@/app/lib/adminStore'
 import { usePartners } from './PartnersContext'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Filler)
-
-const SDG_OPTIONS = [
-  { label: 'SDG 1 – No Poverty', color: '#E5243B' },
-  { label: 'SDG 2 – Zero Hunger', color: '#DDA63A' },
-  { label: 'SDG 3 – Good Health', color: '#4C9F38' },
-  { label: 'SDG 4 – Quality Education', color: '#C5192D' },
-  { label: 'SDG 5 – Gender Equality', color: '#FF3A21' },
-  { label: 'SDG 6 – Clean Water', color: '#26BDE2' },
-  { label: 'SDG 7 – Affordable Energy', color: '#FCC30B' },
-  { label: 'SDG 8 – Decent Work', color: '#A21942' },
-  { label: 'SDG 9 – Industry & Innovation', color: '#FD6925' },
-  { label: 'SDG 10 – Reduced Inequalities', color: '#DD1367' },
-  { label: 'SDG 11 – Sustainable Cities', color: '#FD9D24' },
-  { label: 'SDG 12 – Responsible Consumption', color: '#BF8B2E' },
-  { label: 'SDG 13 – Climate Action', color: '#3F7E44' },
-  { label: 'SDG 14 – Life Below Water', color: '#0A97D9' },
-  { label: 'SDG 15 – Life on Land', color: '#56C02B' },
-  { label: 'SDG 16 – Peace & Justice', color: '#00689D' },
-  { label: 'SDG 17 – Partnerships', color: '#19486A' },
-]
 
 export default function DashboardPage() {
   const { dark } = useDashboardTheme()
@@ -40,7 +20,10 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [donations, setDonations] = useState<DonationRecord[]>([])
   const [recentActivity, setRecentActivity] = useState<{ tag: string; title: string; desc: string; time: string; tagColor: string; tagBg: string }[]>([])
-  const [projectCounts, setProjectCounts] = useState({ volunteers: 0, fellowship: 0, waterConservation: 0 })
+  const [projectCounts, setProjectCounts] = useState({ volunteers: 0, fellowship: 0, waterConservation: 0, sdgEducation: 0, sustainability: 0, cleanCommunity: 0 })
+  const [siteStats, setSiteStats] = useState<SiteStats | null>(null)
+  const [editingSiteStats, setEditingSiteStats] = useState(false)
+  const [siteStatsForm, setSiteStatsForm] = useState<SiteStats | null>(null)
 
   useEffect(() => {
     const load = () => {
@@ -56,7 +39,10 @@ export default function DashboardPage() {
       const volunteers = getVolunteerSubmissions()
       const fellowship = getFellowshipListings()
       const waterConservation = getWaterConservationRegistrations()
-      setProjectCounts({ volunteers: volunteers.length, fellowship: fellowship.length, waterConservation: waterConservation.length })
+      const sdgEducation = getSdgEducationRegistrations()
+      const sustainability = getSustainabilityRegistrations()
+      const cleanCommunity = getCleanCommunityRegistrations()
+      setProjectCounts({ volunteers: volunteers.length, fellowship: fellowship.length, waterConservation: waterConservation.length, sdgEducation: sdgEducation.length, sustainability: sustainability.length, cleanCommunity: cleanCommunity.length })
 
       // Build recent activity from real data
       const activity: { tag: string; title: string; desc: string; time: string; tagColor: string; tagBg: string }[] = []
@@ -68,11 +54,22 @@ export default function DashboardPage() {
         activity.push({ tag: 'Partner', title: 'New Partnership Request', desc: `${p.organization} (${p.type}) — ${p.message.slice(0, 60)}…`, time: p.submittedAt, tagColor: '#06b6d4', tagBg: 'rgba(6,182,212,.1)' })
       })
       setRecentActivity(activity.slice(0, 4))
+
+      const ss = getSiteStats()
+      setSiteStats(ss)
+      if (!editingSiteStats) setSiteStatsForm(ss)
     }
     load()
     const interval = setInterval(load, 2000)
     return () => clearInterval(interval)
   }, [])
+
+  function saveSiteStats() {
+    if (!siteStatsForm) return
+    updateSiteStats(siteStatsForm)
+    setSiteStats(siteStatsForm)
+    setEditingSiteStats(false)
+  }
 
   const c = {
     bg:          dark ? '#0f1117' : '#f5f6fa',
@@ -109,11 +106,6 @@ export default function DashboardPage() {
           <div style={{ fontSize: 12, color: 'rgba(255,255,255,.6)' }}>Review partner requests and project submissions before the deadline.</div>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
-          <button onClick={() => router.push('/admin/dashboard/events/create')} style={{ background: 'rgba(255,255,255,.95)', color: '#1e3a8a', border: 'none', borderRadius: 9, padding: '9px 20px', fontSize: 12.5, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Create Event
-          </button>
-
         </div>
       </div>
 
@@ -179,21 +171,21 @@ export default function DashboardPage() {
             desc: 'Channel CSR funding into transparent, measurable education programs and track impact in real time.',
             count: 25, active: 20, pending: 5,
             gradient: 'linear-gradient(135deg,#155DFC,#00C2FF)',
-            glow: 'rgba(21,93,252,.18)', color: '#155DFC', icon: '🏢',
+            glow: 'rgba(21,93,252,.18)', color: '#155DFC',
           },
           {
             title: 'Schools / Universities / Colleges',
             desc: 'Join our network to access resources, infrastructure support and quality learning programs.',
             count: 420, active: 390, pending: 30,
             gradient: 'linear-gradient(135deg,#00A8A8,#00B050)',
-            glow: 'rgba(0,168,168,.18)', color: '#00A8A8', icon: '🎓',
+            glow: 'rgba(0,168,168,.18)', color: '#00A8A8',
           },
           {
             title: 'NGOs',
             desc: 'Collaborate on the ground to uplift communities and deliver lasting, sustainable social change.',
             count: 87, active: 74, pending: 13,
             gradient: 'linear-gradient(135deg,#FF7A00,#FFB070)',
-            glow: 'rgba(255,122,0,.18)', color: '#FF7A00', icon: '🤝',
+            glow: 'rgba(255,122,0,.18)', color: '#FF7A00',
           },
         ].map((p, i) => (
           <div key={i} className="card-hover fade-up" style={{ ...card, padding: '22px', animationDelay: `${i * .06}s`, overflow: 'hidden', position: 'relative' }}>
@@ -218,49 +210,8 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Charts Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.65fr 1fr', gap: 16, alignItems: 'start' }}>
-
-        {/* SDG Impact Points */}
-        <div className="card-hover" style={card}>
-          <div style={{ padding: '20px 22px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Impact Points Per Selected SDG</div>
-              <div style={{ fontSize: 11.5, color: c.textMuted, marginTop: 3 }}>Ranked by student volunteer contribution</div>
-            </div>
-            <span style={{ fontSize: 11, fontWeight: 600, color: c.accentText, cursor: 'pointer', background: c.accentLight, padding: '4px 12px', borderRadius: 20 }}>Rankings</span>
-          </div>
-          <div style={{ padding: '16px 22px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[
-                { num: 1,  label: 'No Poverty',                pts: 1420, color: '#e5243b', pct: 15 },
-                { num: 3,  label: 'Good Health and Well-being', pts: 3820, color: '#4c9f38', pct: 40 },
-                { num: 4,  label: 'Quality Education',          pts: 9500, color: '#c5192d', pct: 100 },
-                { num: 5,  label: 'Gender Equality',            pts: 2280, color: '#ff3a21', pct: 24 },
-                { num: 6,  label: 'Clean Water & Sanitation',   pts: 4500, color: '#26bde2', pct: 47 },
-                { num: 7,  label: 'Affordable & Clean Energy',  pts: 6280, color: '#fcc30b', pct: 66 },
-              ].map((s, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
-                      <span style={{ fontSize: 12, fontWeight: 600, color: c.textPrimary }}>SDG {s.num}: {s.label}</span>
-                      <span style={{ fontSize: 11.5, fontWeight: 700, color: c.textSecond, whiteSpace: 'nowrap', marginLeft: 12 }}>{s.pts.toLocaleString()} pts</span>
-                    </div>
-                    <div style={{ height: 5, borderRadius: 4, background: c.surfaceAlt, border: `1px solid ${c.border}`, overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${s.pct}%`, background: s.color, borderRadius: 4 }} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${c.border}`, textAlign: 'center' }}>
-              <span onClick={() => router.push('/admin/dashboard/sdg-management')} style={{ fontSize: 12.5, fontWeight: 600, color: c.accentText, cursor: 'pointer' }}>Explore all SDG statistics pages →</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="card-hover" style={card}>
+      {/* Recent Activity */}
+      <div className="card-hover" style={card}>
           <div style={{ padding: '20px 22px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Recent Activity</div>
             <span style={{ fontSize: 11.5, fontWeight: 600, color: c.accentText, cursor: 'pointer' }}>View all</span>
@@ -283,7 +234,6 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
-      </div>
 
       {/* Donations + Project Registrations Row */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -328,13 +278,16 @@ export default function DashboardPage() {
           </div>
           <div style={{ padding: '16px 22px', display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
-              { label: 'Volunteer Applications', count: projectCounts.volunteers, color: '#3b6ef6', icon: '🙋' },
-              { label: 'Fellowship Listings', count: projectCounts.fellowship, color: '#8b5cf6', icon: '🎓' },
-              { label: 'Water Conservation', count: projectCounts.waterConservation, color: '#06b6d4', icon: '💧' },
+              { label: 'Volunteer Applications',    count: projectCounts.volunteers,      color: '#3b6ef6' },
+              { label: 'Fellowship Listings',        count: projectCounts.fellowship,      color: '#a21942' },
+              { label: 'Water Conservation',         count: projectCounts.waterConservation, color: '#06b6d4' },
+              { label: 'SDG Education',              count: projectCounts.sdgEducation,    color: '#c5192d' },
+              { label: 'Sustainability Education',   count: projectCounts.sustainability,  color: '#0fae83' },
+              { label: 'Clean Community',            count: projectCounts.cleanCommunity,  color: '#3f7e44' },
             ].map((p, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: c.surfaceAlt, border: `1px solid ${c.border}`, borderRadius: 10 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 20 }}>{p.icon}</span>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
                   <span style={{ fontSize: 13, fontWeight: 600, color: c.textPrimary }}>{p.label}</span>
                 </div>
                 <span style={{ fontSize: 20, fontWeight: 800, color: p.color }}>{p.count}</span>
@@ -415,40 +368,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-      </div>
-
-      {/* Youth Initiatives */}
-      <div className="card-hover" style={card}>
-        <div style={{ padding: '20px 22px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Youth Initiatives</div>
-            <div style={{ fontSize: 11.5, color: c.textMuted, marginTop: 3 }}>Milestone percentage of approved community proposals</div>
-          </div>
-          <span style={{ fontSize: 11.5, fontWeight: 600, color: c.textSecond, background: c.surfaceAlt, border: `1px solid ${c.border}`, borderRadius: 20, padding: '5px 14px' }}>4 Active</span>
-        </div>
-        <div style={{ padding: '16px 22px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-          {[
-            { sdg: 13, color: '#3f7e44', title: 'Urban Reforestation & Heat Audits',      lead: 'Oakridge Science High',       pct: 84, students: 400 },
-            { sdg: 4,  color: '#c5192d', title: 'Rural Digital Literacy Labs',             lead: 'Youth Empowerment Initiative', pct: 68, students: 130 },
-            { sdg: 6,  color: '#26bde2', title: 'Clean Reservoir Bio-plastic Filters',     lead: 'Green Horizon Alliance',      pct: 41, students: 64  },
-            { sdg: 7,  color: '#fcc30b', title: 'Solar Rechargeable Reading Luminaires',   lead: 'Solaris Global Renewables',   pct: 92, students: 200 },
-          ].map((item, i) => (
-            <div key={i} style={{ border: `1px solid ${c.border}`, borderRadius: 11, padding: '16px', background: c.surfaceAlt }}>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
-                <span style={{ fontSize: 11, color: c.textMuted }}>{item.students} Students</span>
-              </div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: c.textPrimary, marginBottom: 4 }}>{item.title}</div>
-              <div style={{ fontSize: 11.5, color: c.accentText, marginBottom: 14 }}>Lead: {item.lead}</div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                <span style={{ fontSize: 11, color: c.textMuted, fontWeight: 500 }}>Audit Phase</span>
-                <span style={{ fontSize: 11.5, fontWeight: 700, color: c.textPrimary }}>{item.pct}% completed</span>
-              </div>
-              <div style={{ height: 5, borderRadius: 4, background: c.border, overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${item.pct}%`, background: item.color, borderRadius: 4 }} />
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Partners Overview */}
