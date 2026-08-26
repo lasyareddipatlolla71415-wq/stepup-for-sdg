@@ -113,7 +113,9 @@ export default function ContactPage() {
     e: FormEvent<HTMLFormElement>
   ) {
     e.preventDefault();
-
+    import('@/app/lib/adminStore').then(({ addNewsletterSubscriber }) => {
+      addNewsletterSubscriber(newsletterForm.email, 'Contact Page')
+    })
     setNewsletterSubmitted(true);
   }
 

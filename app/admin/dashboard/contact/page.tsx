@@ -4,8 +4,8 @@ import { useContext, useState, useEffect } from 'react'
 import { ThemeContext } from '../ThemeContext'
 import {
   getContactMessages, markContactRead,
-  getVolunteerSubmissions,
-  type ContactMessage,
+  getVolunteerSubmissions, getNewsletterSubscribers,
+  type ContactMessage, type NewsletterSubscriber,
 } from '@/app/lib/adminStore'
 
 const TICKETS = [
@@ -21,12 +21,13 @@ const STATUS_COLORS: Record<string, string> = { Open: '#ef4444', 'In Progress': 
 
 export default function ContactCentrePage() {
   const { dark } = useContext(ThemeContext)
-  const [tab, setTab] = useState<'inbox' | 'tickets'>('inbox')
+  const [tab, setTab] = useState<'inbox' | 'tickets' | 'newsletter'>('inbox')
   const [selected, setSelected] = useState<ContactMessage | null>(null)
   const [compose, setCompose] = useState(false)
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('All')
   const [messages, setMessages] = useState<ContactMessage[]>([])
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([])
   const [reply, setReply] = useState('')
   const [replySent, setReplySent] = useState(false)
   const [form, setForm] = useState({ to: '', subject: '', body: '' })
@@ -54,6 +55,7 @@ export default function ContactCentrePage() {
       const existingIds = new Set(contacts.map(m => m.id))
       const newVolunteers = volunteers.filter(v => !existingIds.has(v.id))
       setMessages([...contacts, ...newVolunteers])
+      setSubscribers(getNewsletterSubscribers())
     }
     load()
     const interval = setInterval(load, 2000)
@@ -130,7 +132,7 @@ export default function ContactCentrePage() {
           { label: 'Total Messages', value: messages.length, color: '#3b6ef6' },
           { label: 'Unread', value: unreadCount, color: '#8b5cf6' },
           { label: 'Open Tickets', value: TICKETS.filter(t => t.status === 'Open').length, color: '#ef4444' },
-          { label: 'Resolved', value: TICKETS.filter(t => t.status === 'Resolved').length, color: '#10b981' },
+          { label: 'Newsletter Subscribers', value: subscribers.length, color: '#10b981' },
         ].map((s, i) => (
           <div key={i} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 12, padding: '16px 18px', boxShadow: c.shadow }}>
             <div style={{ fontSize: 22, fontWeight: 700, color: s.color }}>{s.value}</div>
@@ -141,14 +143,14 @@ export default function ContactCentrePage() {
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: 4, marginBottom: 18, background: c.surface, border: `1px solid ${c.border}`, borderRadius: 10, padding: 4, width: 'fit-content' }}>
-        {(['inbox', 'tickets'] as const).map(t => (
+        {(['inbox', 'tickets', 'newsletter'] as const).map(t => (
           <button key={t} onClick={() => setTab(t)} style={{
             padding: '7px 20px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600,
             background: tab === t ? c.accent : 'transparent',
             color: tab === t ? '#fff' : c.textSecond,
             transition: 'all .15s',
           }}>
-            {t === 'inbox' ? `Inbox ${unreadCount > 0 ? `(${unreadCount})` : ''}` : 'Support Tickets'}
+            {t === 'inbox' ? `Inbox ${unreadCount > 0 ? `(${unreadCount})` : ''}` : t === 'newsletter' ? `Newsletter (${subscribers.length})` : 'Support Tickets'}
           </button>
         ))}
       </div>
@@ -258,6 +260,39 @@ export default function ContactCentrePage() {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {tab === 'newsletter' && (
+        <div style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 14, boxShadow: c.shadow, overflow: 'hidden' }}>
+          <div style={{ padding: '16px 20px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Newsletter Subscribers</div>
+            <span style={{ fontSize: 11, color: c.textMuted }}>{subscribers.length} total</span>
+          </div>
+          {subscribers.length === 0 ? (
+            <div style={{ padding: '48px', textAlign: 'center', color: c.textMuted, fontSize: 13 }}>No subscribers yet. Newsletter signups from the public site will appear here.</div>
+          ) : (
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: c.surfaceAlt }}>
+                  {['Email', 'Source', 'Subscribed On'].map(h => (
+                    <th key={h} style={{ padding: '11px 18px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: c.textMuted, textTransform: 'uppercase', letterSpacing: '0.8px', borderBottom: `1px solid ${c.border}` }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {subscribers.map((s, i) => (
+                  <tr key={s.id} style={{ borderBottom: i < subscribers.length - 1 ? `1px solid ${c.border}` : 'none' }}>
+                    <td style={{ padding: '13px 18px', fontSize: 13, fontWeight: 600, color: c.textPrimary }}>{s.email}</td>
+                    <td style={{ padding: '13px 18px' }}>
+                      <span style={{ fontSize: 11, fontWeight: 600, color: '#3b6ef6', background: 'rgba(59,110,246,.1)', border: '1px solid rgba(59,110,246,.2)', borderRadius: 6, padding: '2px 8px' }}>{s.source}</span>
+                    </td>
+                    <td style={{ padding: '13px 18px', fontSize: 12, color: c.textMuted }}>{s.subscribedAt}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 

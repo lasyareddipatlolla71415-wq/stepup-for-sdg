@@ -918,9 +918,10 @@ function NewsletterSubscription() {
     e: FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault()
-
     if (!newsletterEmail.trim()) return
-
+    import('@/app/lib/adminStore').then(({ addNewsletterSubscriber }) => {
+      addNewsletterSubscriber(newsletterEmail, 'Funds Page')
+    })
     setIsSubscribed(true)
   }
 

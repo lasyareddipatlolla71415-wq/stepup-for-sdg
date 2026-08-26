@@ -9,7 +9,8 @@ import { useDashboardTheme } from './ThemeContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { DIRECTORY } from '@/app/components/partners/partnersData'
-import { getAdminStats, getContactMessages, getPartnershipSubmissions, type AdminStats } from '@/app/lib/adminStore'
+import { getAdminStats, getContactMessages, getPartnershipSubmissions, getDonations, getVolunteerSubmissions, getFellowshipListings, getWaterConservationRegistrations, type AdminStats, type DonationRecord, type ContactMessage, type PartnershipSubmission } from '@/app/lib/adminStore'
+import { usePartners } from './PartnersContext'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Filler)
 
 const SDG_OPTIONS = [
@@ -35,13 +36,38 @@ const SDG_OPTIONS = [
 export default function DashboardPage() {
   const { dark } = useDashboardTheme()
   const router = useRouter()
+  const { partners } = usePartners()
   const [stats, setStats] = useState<AdminStats | null>(null)
+  const [donations, setDonations] = useState<DonationRecord[]>([])
+  const [recentActivity, setRecentActivity] = useState<{ tag: string; title: string; desc: string; time: string; tagColor: string; tagBg: string }[]>([])
+  const [projectCounts, setProjectCounts] = useState({ volunteers: 0, fellowship: 0, waterConservation: 0 })
+
   useEffect(() => {
     const load = () => {
       const s = getAdminStats()
       const unread = getContactMessages().filter(m => m.unread).length
-      const pending = getPartnershipSubmissions().length
-      setStats({ ...s, pendingRequests: unread + pending })
+      const partnerSubs = getPartnershipSubmissions()
+      const pending = unread + partnerSubs.length
+      setStats({ ...s, pendingRequests: pending })
+
+      const allDonations = getDonations()
+      setDonations(allDonations)
+
+      const volunteers = getVolunteerSubmissions()
+      const fellowship = getFellowshipListings()
+      const waterConservation = getWaterConservationRegistrations()
+      setProjectCounts({ volunteers: volunteers.length, fellowship: fellowship.length, waterConservation: waterConservation.length })
+
+      // Build recent activity from real data
+      const activity: { tag: string; title: string; desc: string; time: string; tagColor: string; tagBg: string }[] = []
+      const contacts = getContactMessages().slice(0, 2)
+      contacts.forEach((m: ContactMessage) => {
+        activity.push({ tag: m.tag, title: m.subject, desc: `${m.from} — ${m.body.slice(0, 60)}…`, time: m.time || m.date, tagColor: '#3b6ef6', tagBg: 'rgba(59,110,246,.1)' })
+      })
+      partnerSubs.slice(0, 2).forEach((p: PartnershipSubmission) => {
+        activity.push({ tag: 'Partner', title: 'New Partnership Request', desc: `${p.organization} (${p.type}) — ${p.message.slice(0, 60)}…`, time: p.submittedAt, tagColor: '#06b6d4', tagBg: 'rgba(6,182,212,.1)' })
+      })
+      setRecentActivity(activity.slice(0, 4))
     }
     load()
     const interval = setInterval(load, 2000)
@@ -79,7 +105,7 @@ export default function DashboardPage() {
       {/* Banner */}
       <div style={{ background: 'linear-gradient(120deg,#1e3a8a 0%,#2563eb 55%,#0ea5e9 100%)', borderRadius: 14, padding: '18px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 4px 20px rgba(37,99,235,.3)' }}>
         <div>
-          <div style={{ fontSize: 14.5, fontWeight: 700, color: '#fff', marginBottom: 4 }}>12 applications &amp; 4 reviews pending your approval</div>
+          <div style={{ fontSize: 14.5, fontWeight: 700, color: '#fff', marginBottom: 4 }}>{stats ? `${stats.pendingRequests} applications & reviews pending your approval` : 'Loading…'}</div>
           <div style={{ fontSize: 12, color: 'rgba(255,255,255,.6)' }}>Review partner requests and project submissions before the deadline.</div>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
@@ -131,8 +157,8 @@ export default function DashboardPage() {
         {[
           { label: 'Total Students',    value: stats ? stats.totalStudents.toLocaleString() : '…', change: '+12% this month', up: true,  color: '#3b6ef6' },
           { label: 'Schools Supported', value: stats ? String(stats.schoolsSupported) : '…',    change: '+5 new schools',  up: true,  color: '#8b5cf6' },
-          { label: 'Projects Completed',value: '89',     change: 'Stable trend',    up: null,  color: '#f59e0b' },
-          { label: 'Active Partners',   value: '56',     change: '+3 this week',    up: true,  color: '#10b981' },
+          { label: 'Projects Completed', value: String(projectCounts.volunteers + projectCounts.fellowship + projectCounts.waterConservation), change: 'From submissions', up: null, color: '#f59e0b' },
+          { label: 'Active Partners',   value: String(partners.length), change: '+3 this week', up: true, color: '#10b981' },
         ].map((s, i) => (
           <div key={i} className="card-hover fade-up" style={{ ...card, padding: '20px', animationDelay: `${i * .06}s`, overflow: 'hidden', position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: s.color, borderRadius: '14px 14px 0 0' }} />
@@ -240,12 +266,12 @@ export default function DashboardPage() {
             <span style={{ fontSize: 11.5, fontWeight: 600, color: c.accentText, cursor: 'pointer' }}>View all</span>
           </div>
           <div style={{ padding: '4px 0' }}>
-            {[
+            {(recentActivity.length > 0 ? recentActivity : [
               { tag: 'Partner',   title: 'New partner application',    desc: 'GreenEarth NGO submitted a request.',    time: '2h ago',    tagColor: '#3b6ef6', tagBg: 'rgba(59,110,246,.1)' },
               { tag: 'School',    title: 'New School Enrolled',         desc: 'Bright Futures Academy joined SDG 4.',   time: '5h ago',    tagColor: '#06b6d4', tagBg: 'rgba(6,182,212,.1)' },
               { tag: 'Milestone', title: 'Project Milestone Reached',   desc: 'Water Access Project reached 100%.',     time: 'Yesterday', tagColor: '#10b981', tagBg: 'rgba(16,185,129,.1)' },
               { tag: 'Report',    title: 'Report Submitted',            desc: 'EcoSolutions uploaded Q3 impact report.', time: '2d ago',   tagColor: '#f59e0b', tagBg: 'rgba(245,158,11,.1)' },
-            ].map((a, i, arr) => (
+            ]).map((a, i, arr) => (
               <div key={i} style={{ display: 'flex', gap: 12, padding: '13px 22px', borderBottom: i < arr.length - 1 ? `1px solid ${c.border}` : 'none' }}>
                 <span style={{ fontSize: 9.5, fontWeight: 700, color: a.tagColor, background: a.tagBg, borderRadius: 5, padding: '3px 7px', letterSpacing: '.4px', textTransform: 'uppercase', height: 'fit-content', marginTop: 1, flexShrink: 0 }}>{a.tag}</span>
                 <div>
@@ -253,6 +279,65 @@ export default function DashboardPage() {
                   <div style={{ fontSize: 11.5, color: c.textSecond, marginTop: 2 }}>{a.desc}</div>
                   <div style={{ fontSize: 10.5, color: c.textMuted, marginTop: 4 }}>{a.time}</div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Donations + Project Registrations Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+
+        {/* Total Funds Raised + Recent Donations */}
+        <div className="card-hover" style={card}>
+          <div style={{ padding: '20px 22px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Funds Raised</div>
+              <div style={{ fontSize: 11.5, color: c.textMuted, marginTop: 3 }}>Total donations received</div>
+            </div>
+            <span onClick={() => router.push('/admin/dashboard/donations')} style={{ fontSize: 11.5, fontWeight: 600, color: c.accentText, cursor: 'pointer' }}>View all ›</span>
+          </div>
+          <div style={{ padding: '16px 22px' }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: c.green, marginBottom: 4 }}>
+              ₹{donations.reduce((sum, d) => sum + d.amount, 0).toLocaleString('en-IN')}
+            </div>
+            <div style={{ fontSize: 11.5, color: c.textMuted, marginBottom: 16 }}>{donations.length} donation{donations.length !== 1 ? 's' : ''} total</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {donations.slice(0, 3).map((d, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: c.surfaceAlt, border: `1px solid ${c.border}`, borderRadius: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 12.5, fontWeight: 600, color: c.textPrimary }}>{d.name}</div>
+                    <div style={{ fontSize: 11, color: c.textMuted }}>{d.method} · {new Date(d.donatedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</div>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: c.green }}>₹{d.amount.toLocaleString('en-IN')}</div>
+                </div>
+              ))}
+              {donations.length === 0 && <div style={{ fontSize: 12, color: c.textMuted, textAlign: 'center', padding: '12px 0' }}>No donations yet</div>}
+            </div>
+          </div>
+        </div>
+
+        {/* Per-Project Registrations */}
+        <div className="card-hover" style={card}>
+          <div style={{ padding: '20px 22px', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: c.textPrimary }}>Project Registrations</div>
+              <div style={{ fontSize: 11.5, color: c.textMuted, marginTop: 3 }}>Submissions per active project</div>
+            </div>
+            <span onClick={() => router.push('/admin/dashboard/submissions')} style={{ fontSize: 11.5, fontWeight: 600, color: c.accentText, cursor: 'pointer' }}>View all ›</span>
+          </div>
+          <div style={{ padding: '16px 22px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {[
+              { label: 'Volunteer Applications', count: projectCounts.volunteers, color: '#3b6ef6', icon: '🙋' },
+              { label: 'Fellowship Listings', count: projectCounts.fellowship, color: '#8b5cf6', icon: '🎓' },
+              { label: 'Water Conservation', count: projectCounts.waterConservation, color: '#06b6d4', icon: '💧' },
+            ].map((p, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: c.surfaceAlt, border: `1px solid ${c.border}`, borderRadius: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 20 }}>{p.icon}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: c.textPrimary }}>{p.label}</span>
+                </div>
+                <span style={{ fontSize: 20, fontWeight: 800, color: p.color }}>{p.count}</span>
               </div>
             ))}
           </div>
