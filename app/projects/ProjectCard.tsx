@@ -8,6 +8,7 @@ type ProjectCardProject = {
   name: string;
   description: string;
   backgroundImage: string;
+  sdgIcon?: string;
   href?: string;
 };
 
